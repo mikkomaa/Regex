@@ -37,7 +37,7 @@ Jos säännöllisessä lausekkeessa haluaa käyttää tavallisena merkkinä merk
 ## Algoritmit ja tietorakenteet
 Algoritmien kannalta ohjelmassa on kolme toisistaan erottuvaa vaihetta:
 
-1. Parametrina annetun säännöllisen lausekkeen esikäsittely: Lauseke muunnetaan yhdeksi char[]-tauluksi, ja lausekkeen oikeellisuus tarkistetaan. Jos syntaksi on oikea, lausekkeeseen lisätään .-merkit kuvaamaan katenaatioita. Lopuksi infix-muodossa oleva lauseke muunnetaan postfix-muotoon. Postfix-muunnokseen käytetään shunting-yard-algoritmia (tai jotakin vastaavaa). Muiden vaiheiden algoritmit kehitetään todennäköisesti itse.
+1. Parametrina annetun säännöllisen lausekkeen esikäsittely: Lauseke muunnetaan yhdeksi char[]-tauluksi, ja lausekkeen oikeellisuus tarkistetaan. Jos syntaksi on oikea, lausekkeeseen lisätään .-merkit kuvaamaan katenaatioita. Lopuksi infix-muodossa oleva lauseke muunnetaan postfix-muotoon. Postfix-muunnokseen käytetään shunting-yard-algoritmia (tai jotakin vastaavaa). Muut vaiheen algoritmit kehitetään todennäköisesti itse.
 2. Äärellisen automaatin luominen: postfix-notaatiossa olevasta lausekkeesta luodaan automaatti käyttäen Thompsonin algoritmia.
 3. Parametrina saatua tiedostoa luetaan rivi kerrallaan, ja jokainen rivi ajetaan automaatin läpi merkki kerrallaan. Ajoalgoritmi on tarkoitus kirjoittaa itse.
 
