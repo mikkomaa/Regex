@@ -17,12 +17,13 @@ Ohjelman toiminnan vaiheet ovat seuraavat:
 5. Postfix-notaatiosta luodaan epädeterministinen äärellinen automaatti (nondeterministic finite automaton, nfa). Automaatti on linkitetty rakenne, jonka osia ovat yksittäiset tilat.
 6. Ohjelma lukee syötteenä saadusta tiedostosta rivin kerrallaan muistiin. Rivi ajetaan merkki kerrallaan automaatin läpi. Jos automaatti hyväksyy rivin, rivin ajaminen päättyy ja rivi tulostetaan. Muutoin rivi ajetaan loppuun, ja siirrytään sen jälkeen käsittelemään seuraava rivi.
 7. Kun tiedoston kaikki rivit on käsitelty, ohjelman suoritus päättyy.
+
 ## Säännöllisen lausekkeen syntaksi
 Säännöllisten lausekkeiden kolme perusoperaatiota ovat tähti (*), yhdiste (|) ja katenaatio. Lisäksi voidaan määritellä muita operaatioita, ja käytännön sovelluksissa niin usein tehdäänkin. Lisäoperaatiot helpottavat säännöllisten lausekkeiden käyttöä, vaikka ne eivät lisää lausekkeiden teoreettista ilmaisuvoimaa.
 
 Parametrina annettava säännöllinen lauseke voi sisältää seuraavia operaatioita:
 - katenaatio: Esim. lauseke abc löytää rivit, joilla esiintyy merkkijono abc. Katenaatiolle ei siis tarvitse merkitä operaattoria näkyviin.
-- tähti * : Edeltävä merkki esiintyy merkkijonossa 0 kertaa tai useammin. Esim. ab* löytää rivit, joilla esiintyy a, ab, abb, abbb jne.
+- tähti * : Edeltävä merkki esiintyy merkkijonossa nolla kertaa tai useammin. Esim. ab* löytää rivit, joilla esiintyy a, ab, abb, abbb jne.
 - yhdiste | : Lauseke a|b löytää merkkijonot, joissa esiintyy merkki a tai b.
 - kysymysmerkki ? : Kysymysmerkin paikalla voi olla mikä tahansa merkki. Esim. lauseke t??o löytää mm. rivit, joilla esiintyvät merkkijonot talo, tulo tai talous.
 - Tämä lista saattaa täydentyä riippuen siitä, miten paljon ehdin toteuttaa.
@@ -45,6 +46,7 @@ Edellä mainituissa vaiheissa käytetään vastaavasti seuraavia tietorakenteita
 1. Säännöllistä lauseketta käsitellään char[]-tauluna. Shunting-yard-algoritmissa tarvitaan mahdollisesti pinoa.
 2. Automaatin rakenneosia ovat tilat, joita varten määritellään tietorakenne. Automaatti on toisiinsa linkitetyistä tiloista muodostuva kokonaisuus. Thompsonin algoritmissa käytetään apuna pinoa.
 3. Automaatin ajamisessa käytetään apuna pinoa. Syötetiedoston rivit luetaan muistiin käyttäen Javan valmiita välineitä.
+
 ## Tavoitteena olevat aika- ja tilavaativuudet
 ### Koko ohjelman vaativuudet
 Ohjelman nopeuden kannalta on käytännössä ratkaisevaa se, mikä on automaatin ajamisen aikavaativuus. Kun syötetiedoston kokoluokka on vähintään tuhansia merkkejä, automaatin ajaminen dominoi ohjelman aikavaativuutta. Säännöllinen lauseke on tyypillisesti korkeintaan kymmeniä merkkejä. Vaikka lausekkeen käsittelyssä on useita vaiheita, siihen kuluva aika on valituilla algoritmeillä merkityksetön ohjelman toiminnan kannalta.
@@ -70,5 +72,5 @@ Automaattia ajava algoritmi käy yksittäisiä rivejä läpi merkki kerrallaan, 
 Lisätietoa äärellisistä automaateista ja säännöllisistä lausekkeista on laskennan mallit-kurssin luentokalvojen luvussa 1 <https://www.cs.helsinki.fi/u/jkivinen/opetus/lama/s11/luennot.pdf>
 
 Wikipediassa on artikkeli shunting-yard-algoritmista <https://en.wikipedia.org/wiki/Shunting-yard_algorithm>
-ja automaatin luomisesta Thompsonin algoritmilla <https://en.wikipedia.org/wiki/Thompson's_construction>
+ja automaatin luomisesta Thompsonin algoritmilla [https://en.wikipedia.org/wiki/Thompson's_construction]
 
