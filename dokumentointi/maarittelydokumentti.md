@@ -32,7 +32,7 @@ Operaatioiden etusijajärjestys on sitovimmasta alkaen seuraava: *, katenaatio j
 
 Suluilla () voi muuttaa normaalia etusijajärjestystä. Esim. lauseke ab|cd löytää rivit, joilla esiintyy merkkijonot ab tai cd, mutta lauseke a(b|c)d löytää rivit, joilla esiintyy merkkijonot abd tai acd.
 
-Jos säännöllisessä lausekkeessa haluaa käyttää tavallisena merkkinä merkkejä *, |, ?, (, ) tai \, merkin eteen pitää kirjoittaa kenoviiva (\). Esim. merkkijonon Häh? löytää lausekkeella Häh\?.
+Jos säännöllisessä lausekkeessa haluaa käyttää tavallisena merkkinä merkkejä *, |, ?, (, ) tai \, merkin eteen pitää kirjoittaa kenoviiva. Esim. merkkijonon Häh? löytää lausekkeella Häh\?.
 
 ## Algoritmit ja tietorakenteet
 Algoritmien kannalta ohjelmassa on kolme toisistaan erottuvaa vaihetta:
