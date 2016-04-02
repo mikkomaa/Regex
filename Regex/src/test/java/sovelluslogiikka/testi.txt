@@ -1,0 +1,6 @@
+Tämä tiedosto on osa Komentokasittelija-luokan testejä.
+
+Tallenna tiedosto hakemistoon, josta ohjelma löytää sen
+testejä ajettaessa.
+
+Tiedoston sisällöllä ei ole väliä.
