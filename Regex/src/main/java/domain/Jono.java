@@ -1,12 +1,12 @@
 /**
- * Pakkaus sisältää tilan sekä jonon ja pinon toteutuksen
+ * Pakkaus sisältää tilan, jonon ja pinon toteutuksen
  */
 package domain;
 
 /**
  * Luokka toteuttaa dynaamisesti kasvavan jonon
  *
- * @param <T> Alkioiden tyyppi
+ * @param <T> Jonon alkioiden tyyppi
  */
 public class Jono<T> implements Sailio<T> {
 
