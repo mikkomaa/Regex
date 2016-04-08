@@ -1,5 +1,7 @@
 package domain;
 
+import static domain.Vakiot.TYHJA;
+
 /**
  * Luokka toteuttaa tilan, joista äärellinen automaatti muodostuu
  */
@@ -99,7 +101,7 @@ public class Tila {
 
     @Override
     public String toString() {
-        String s = merkki == '\0' ? "''" : "" + merkki;
+        String s = merkki == TYHJA ? "''" : "" + merkki;
         s += lopputila == true ? " true" : " false";
         s += ulos1 == null ? " null" : " -->";
         s += ulos2 == null ? " null" : " -->";

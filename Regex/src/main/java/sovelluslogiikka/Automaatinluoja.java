@@ -1,6 +1,7 @@
 package sovelluslogiikka;
 
 import domain.*;
+import static domain.Vakiot.*;
 
 /**
  * Luokka luo postfix-notaatiossa olevasta säännöllisestä lausekkeesta
@@ -36,6 +37,9 @@ public class Automaatinluoja {
                 case '*':
                     hoidaTahti();
                     break;
+                case '?':
+                    hoidaMerkki(KYSYMYS);
+                    break;
                 default: // tavallinen merkki
                     hoidaMerkki(c);
                     break;
@@ -46,7 +50,7 @@ public class Automaatinluoja {
     }
 
     private void hoidaMerkki(char merkki) {
-        Tila t2 = new Tila('\0', true, null, null);
+        Tila t2 = new Tila(TYHJA, true, null, null);
         Tila t1 = new Tila(merkki, false, t2, null);
         tilapino.lisaa(t1);
     }
@@ -64,8 +68,8 @@ public class Automaatinluoja {
     private void hoidaTai() {
         Tila t2 = tilapino.poista();
         Tila t1 = tilapino.poista();
-        Tila alku = new Tila('\0', false, t1, t2);
-        Tila loppu = new Tila('\0', true, null, null);
+        Tila alku = new Tila(TYHJA, false, t1, t2);
+        Tila loppu = new Tila(TYHJA, true, null, null);
 
         Tila temp = etsiLoppu(t1);
         temp.setUlos1(loppu);
@@ -84,9 +88,9 @@ public class Automaatinluoja {
         temp.setLopputila(false);
         temp.setUlos2(t1);
 
-        Tila loppu = new Tila('\0', true, null, null);
+        Tila loppu = new Tila(TYHJA, true, null, null);
         temp.setUlos1(loppu);
-        Tila alku = new Tila('\0', false, t1, loppu);
+        Tila alku = new Tila(TYHJA, false, t1, loppu);
         tilapino.lisaa(alku);
     }
 

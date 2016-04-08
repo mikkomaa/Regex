@@ -1,43 +1,80 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Pakkaus sisältää main-luokan, joka huolehtii ohjelman ajamisesta
  */
 package regex.regex;
 
 import domain.*;
 import java.util.Scanner;
+import sovelluslogiikka.Automaatinluoja;
+import sovelluslogiikka.Automaatti;
 import sovelluslogiikka.Notaationmuuntaja;
 import sovelluslogiikka.Parametrikasittelija;
 
 /**
- *
- * @author mikkomaa
+ * Pääohjelmaluokka, joka käynnistää ohjelman ja huolehtii ohjelman ajamisesta
  */
 public class Main {
 
     /**
-     * @param args the command line arguments
+     * Metodi käynnistää ja ajaa ohjelman
+     * 
+     * @param args Käyttäjän antamat komentoriviparametrit
      */
     public static void main(String[] args) {
-        // testikoodia
-        Tila t = new Tila('\0', true, null, null);
-        Jono<Character> p = new Jono<>();
-        p.lisaa('1');
-        p.lisaa('2');
-        p.lisaa('\\');
-        p.lisaa('3');
-        Notaationmuuntaja m = new Notaationmuuntaja(p);
-        System.out.println(m.lisaaPisteet().toString());
         
-//        for (String arg : args) {
-//            System.out.println(arg);
-//        }
-//        System.out.println(args.length);
-//        
-//        Parametrikasittelija k = new Parametrikasittelija(args);
-//        Scanner sc = k.avaaTiedosto();
-//        System.out.println(k);
+        // TODO: refaktoroi alla oleva erilliseen käyttöliittymään
+        
+        Parametrikasittelija pk = new Parametrikasittelija(args);
+        Scanner lukija = pk.avaaTiedosto();
+        if (lukija == null) {
+            System.out.println("hupsis");
+            tulostaAvausvirhe();
+            System.exit(0);
+        }
+        
+        Jono<Character> lauseke = pk.taulukoiLauseke();
+        if (lauseke == null) {
+            tulostaPuuttuvaLausekeVirhe();
+            System.exit(0);
+        }
+        
+        Notaationmuuntaja nm = new Notaationmuuntaja(lauseke);
+        char c = nm.onkoLausekeOikein();
+        if (c != 'x') {
+            tulostaLausekevirhe();
+            System.exit(0);
+        }
+        nm.lisaaPisteet();
+        Jono<Character> postfix = nm.muutaPostfixiin();
+        
+        Automaatinluoja luoja = new Automaatinluoja();
+        Tila nfa = luoja.luoAutomaatti(postfix);
+        
+        Automaatti automaatti = new Automaatti(nfa);
+        
+        while (lukija.hasNextLine()) {
+            String rivi = lukija.nextLine();
+            if (automaatti.suorita(rivi)) {
+                System.out.println(rivi);
+            }
+        }
+        
+    }
+    
+    private static void tulostaAvausvirhe() {
+        //todo
+    }
+    
+    private static void tulostaPuuttuvaLausekeVirhe() {
+        //todo
+    }
+    
+    private static void tulostaLausekevirhe() {
+        //todo
+    }
+    
+    private static void tulostaOhje() {
+        //todo
     }
     
 }
