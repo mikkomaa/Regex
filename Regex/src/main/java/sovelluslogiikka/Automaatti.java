@@ -32,7 +32,7 @@ public class Automaatti {
      */
     public boolean suorita(String mjono) {
         aktiivitilat = new Pino<>();
-        //aktiivitilat.lisaa(nfa); // alkutila pinoon
+        aktiivitilat.lisaa(nfa); // alkutila pinoon
         hyvaksy = false;
 
         for (int i = 0; i < mjono.length(); i++) {
@@ -72,7 +72,7 @@ public class Automaatti {
             ; // polku päätyi umpikujaan väärän merkin vuoksi
         } else if (jatka == true) { // merkki täsmää tilan merkkiin
             etene(alku.getUlos1(), merkki, false, uudet);
-            etene(alku.getUlos2(), merkki, false, uudet);
+            // merkkitilan 2. linkissä on aina null, ei tarvita rekursiokutsua
         } else { // päästiin seuraavaan tilaan, jossa on merkki
             uudet.lisaa(alku); // asetetaan tila aktiiviseksi
         }

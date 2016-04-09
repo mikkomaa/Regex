@@ -19,7 +19,8 @@ public class AutomaattiTest {
             + "ennenkuin joutui laitumeksi kylän karjalle. "
             + "Ja vielä perään omia merkkejä: Mitäh? Omia merkkejä?";
 
-    String[] loytyvatLausekkeet = {"u", "ei", " erä*n", "t(u|a)lo, ", "t(a|u)lo, ", "täh\\?", "täh?"};
+    String[] loytyvatLausekkeet = {"u", "ei", " erä*n", "t(u|a)lo, ", "t(a|u)lo, ",
+        "täh\\?", "täh?", "Juko", "Omia mer(kk)|(xx)ejä", "Omia mer(xx)|(kk)ejä"};
     String[] eiLoytyvatLausekkeet = {"x", "pöö", "?\\?:", "ennenkuinka", "jukola", "  "};
 
     @Test
