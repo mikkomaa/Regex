@@ -2,10 +2,6 @@ package sovelluslogiikka;
 
 import domain.Jono;
 import domain.Tila;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -22,7 +18,7 @@ public class AutomaattiTest {
     String[] loytyvatLausekkeet = {"u", "ei", " erä*n", "t(u|a)lo, ", "t(a|u)lo, ",
         "täh\\?", "täh?", "Juko", "Omia mer(kk)|(xx)ejä", "Omia mer(xx)|(kk)ejä"};
     String[] eiLoytyvatLausekkeet = {"x", "pöö", "?\\?:", "ennenkuinka", "jukola", "  "};
-
+    
     @Test
     public void suoritaToimiiKunLausekeLoytyy() {
         for (int i = 0; i < loytyvatLausekkeet.length; i++) {
@@ -43,13 +39,14 @@ public class AutomaattiTest {
 
     private Tila luoUusiAutomaatti(String lauseke) {
         Jono<Character> jono = luoJono(lauseke);
+        Notaationtarkistaja tarkistaja = new Notaationtarkistaja(jono);
+        tarkistaja.onkoLausekeOikein();
+        
         Notaationmuuntaja muuntaja = new Notaationmuuntaja(jono);
-        muuntaja.onkoLausekeOikein();
-        Jono<Character> jono2 = muuntaja.lisaaPisteet();
-        jono = muuntaja.muutaPostfixiin();
+        Jono<Character> jono2 = muuntaja.muunna();
 
         Automaatinluoja luoja = new Automaatinluoja();
-        Tila nfa = luoja.luoAutomaatti(jono);
+        Tila nfa = luoja.luoAutomaatti(jono2);
 
         return nfa;
     }

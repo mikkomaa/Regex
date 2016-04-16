@@ -1,56 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sovelluslogiikka;
 
 import domain.Jono;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author mikkomaa
- */
 public class NotaationmuuntajaTest {
 
     Notaationmuuntaja n;
     Jono<Character> jono;
 
-    String[] lyhyetVirheelliset = {"\\", "(", ")", "|", "*", "a**", "a|", "b(", "()", "(*", "\\\\\\"};
-    char[] lyhyetVirheellisetVastaukset = {'\\', '(', ')', '|', '*', '*', '|', '(', ')', '*', '\\'};
+    String[] lyhyet = {"4", "a", ".", "4.", "a*b", "a*", "\\*", "\\||a", "a|b", "\\\\", "\\\\\\\\"};
+    String[] lyhyetPistein = {"4", "a", "\\.", "4.\\.", "a*.b", "a*", "\\*", "\\||a", "a|b", "\\\\", "\\\\.\\\\"};
+    String[] lyhyetPostfix = {"4", "a", "\\.", "4\\..", "a*b.", "a*", "\\*", "\\|a|", "ab|", "\\\\", "\\\\\\\\."};
 
-    String[] lyhyetOikeat = {"4", "a", ".", "4.", "a*b", "a*", "\\*", "\\||a", "a|b", "\\\\", "\\\\\\\\"};
-    String[] lyhyetOikeatPistein = {"4", "a", "\\.", "4.\\.", "a*.b", "a*", "\\*", "\\||a", "a|b", "\\\\", "\\\\.\\\\"};
-    String[] lyhyetOikeatPostfix = {"4", "a", "\\.", "4\\..", "a*b.", "a*", "\\*", "\\|a|", "ab|", "\\\\", "\\\\\\\\."};
+    String[] tait = {"ab|c", "a(b|c)", "a|b|c|d", "aa|aa", "(ab)|(cd)", "ab|(c|d)", "(((a|b)))"};
+    String[] taitPistein = {"a.b|c", "a.(b|c)", "a|b|c|d", "a.a|a.a", "(a.b)|(c.d)", "a.b|(c|d)", "(((a|b)))"};
+    String[] taitPostfix = {"ab.c|", "abc|.", "ab|c|d|", "aa.aa.|", "ab.cd.|", "ab.cd||", "ab|"};
 
-    String[] taitVirheelliset = {"|bc", "a|c|", "ab|", "a||b", "(|c)", "b(|a)"};
-
-    String[] taitOikeat = {"ab|c", "a(b|c)", "a|b|c|d", "aa|aa", "(ab)|(cd)", "ab|(c|d)", "(((a|b)))"};
-    String[] taitOikeatPistein = {"a.b|c", "a.(b|c)", "a|b|c|d", "a.a|a.a", "(a.b)|(c.d)", "a.b|(c|d)", "(((a|b)))"};
-    String[] taitOikeatPostfix = {"ab.c|", "abc|.", "ab|c|d|", "aa.aa.|", "ab.cd.|", "ab.cd||", "ab|"};
-
-    String[] tahdetVirheelliset = {"a**", "a(*)", "a|*", "a|b**"};
-
-    String[] sulutVirheelliset = {"a()", "ab)c", "a(ab", "(ab))"};
-    char[] sulutVirheellisetVastaukset = {')', ')', '(', ')'};
-
-    String[] oikeat = {"ab*c", "\\)9\\*pöö", "a(ab)*", "(ab)|c", "12\\34((5)|6)7*8", "12\\\\3"};
-    String[] oikeatPistein = {"a.b*.c", "\\).9.\\*.p.ö.ö", "a.(a.b)*", "(a.b)|c", "1.2.\\3.4.((5)|6).7*.8", "1.2.\\\\.3"};
-    String[] oikeatPostfix = {"ab*.c.", "\\)9.\\*.p.ö.ö.", "aab.*.", "ab.c|", "12.\\3.4.56|.7*.8.", "12.\\\\.3."};
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
+    String[] hakasulut = {"[a-c]", "[a-b]|a", "a|[y-z]", "[d-g]*a", "[a-c][1-2]"};
+    String[] normaalisulut = {"(a|b|c)", "(a|b)|a", "a|(y|z)", "(d|e|f|g)*a", "(a|b|c)(1|2)"};
+    
+    String[] muut = {"ab*c", "\\)9\\*pöö", "a(ab)*", "(ab)|c", "12\\34((5)|6)7*8", "12\\\\3", "(a*)*"};
+    String[] muutPistein = {"a.b*.c", "\\).9.\\*.p.ö.ö", "a.(a.b)*", "(a.b)|c", "1.2.\\3.4.((5)|6).7*.8", "1.2.\\\\.3", "(a*)*"};
+    String[] muutPostfix = {"ab*.c.", "\\)9.\\*.p.ö.ö.", "aab.*.", "ab.c|", "12.\\3.4.56|.7*.8.", "12.\\\\.3.", "a**"};
 
     @Test
     public void konstruktoriToimiiOikein() {
@@ -58,149 +30,75 @@ public class NotaationmuuntajaTest {
         assertEquals("ab|", n.toString());
     }
 
-    // Testataan onkoLausekeOikein()-metodia
+    // Testataan poistaHakasulut()-metodia
     @Test
-    public void onkoLausekeOikeinToimiiLyhyillaVirheellisilla() {
-        for (int i = 0; i < lyhyetVirheelliset.length; i++) {
-            jono = luoJono(lyhyetVirheelliset[i]);
+    public void poistaHakasulutToimii() {
+        for (int i = 0; i < hakasulut.length; i++) {
+            jono = luoJono(hakasulut[i]);
             n = new Notaationmuuntaja(jono);
-            assertEquals(lyhyetVirheellisetVastaukset[i], n.onkoLausekeOikein());
+            assertEquals(normaalisulut[i], n.poistaHakasulut().toString());
         }
     }
-
-    @Test
-    public void onkoLausekeOikeinToimiiLyhyillaOikeilla() {
-        for (int i = 0; i < lyhyetOikeat.length; i++) {
-            jono = luoJono(lyhyetOikeat[i]);
-            n = new Notaationmuuntaja(jono);
-            assertEquals('x', n.onkoLausekeOikein());
-        }
-    }
-
-    @Test
-    public void onkoLausekeOikeinToimiiTaivirheilla() {
-        for (int i = 0; i < taitVirheelliset.length; i++) {
-            jono = luoJono(taitVirheelliset[i]);
-            n = new Notaationmuuntaja(jono);
-            assertEquals('|', n.onkoLausekeOikein());
-        }
-    }
-
-    @Test
-    public void onkoLausekeOikeinToimiiKunTaitOikein() {
-        for (int i = 0; i < taitOikeat.length; i++) {
-            jono = luoJono(taitOikeat[i]);
-            n = new Notaationmuuntaja(jono);
-            assertEquals('x', n.onkoLausekeOikein());
-        }
-    }
-
-    @Test
-    public void onkoLausekeOikeinToimiiKunTahtiVaarin() {
-        for (int i = 0; i < tahdetVirheelliset.length; i++) {
-            jono = luoJono(tahdetVirheelliset[i]);
-            n = new Notaationmuuntaja(jono);
-            assertEquals('*', n.onkoLausekeOikein());
-        }
-    }
-
-    @Test
-    public void onkoLausekeOikeinToimiiKunSulkuVaarin() {
-        for (int i = 0; i < sulutVirheelliset.length; i++) {
-            jono = luoJono(sulutVirheelliset[i]);
-            n = new Notaationmuuntaja(jono);
-            assertEquals(sulutVirheellisetVastaukset[i], n.onkoLausekeOikein());
-        }
-    }
-
-    @Test
-    public void onkoLausekeOikeinToimiiOikeilla() {
-        for (int i = 0; i < oikeat.length; i++) {
-            jono = luoJono(oikeat[i]);
-            n = new Notaationmuuntaja(jono);
-            assertEquals('x', n.onkoLausekeOikein());
-        }
-    }
-
+    
     // Testataan lisaaPisteet()-metodia
     @Test
     public void lisaaPisteetToimiiLyhyilla() {
-        for (int i = 0; i < lyhyetOikeat.length; i++) {
-            jono = luoJono(lyhyetOikeat[i]);
+        for (int i = 0; i < lyhyet.length; i++) {
+            jono = luoJono(lyhyet[i]);
             n = new Notaationmuuntaja(jono);
-            n.lisaaPisteet();
-            assertEquals(lyhyetOikeatPistein[i], n.toString());
+            assertEquals(lyhyetPistein[i], n.lisaaPisteet().toString());
         }
     }
 
     @Test
     public void lisaaPisteetToimiiTailla() {
-        for (int i = 0; i < taitOikeat.length; i++) {
-            jono = luoJono(taitOikeat[i]);
+        for (int i = 0; i < tait.length; i++) {
+            jono = luoJono(tait[i]);
             n = new Notaationmuuntaja(jono);
-            n.lisaaPisteet();
-            assertEquals(taitOikeatPistein[i], n.toString());
+            assertEquals(taitPistein[i], n.lisaaPisteet().toString());
         }
     }
 
     @Test
     public void lisaaPisteetToimiiOikeilla() {
-        for (int i = 0; i < oikeat.length; i++) {
-            jono = luoJono(oikeat[i]);
+        for (int i = 0; i < muut.length; i++) {
+            jono = luoJono(muut[i]);
             n = new Notaationmuuntaja(jono);
-            n.lisaaPisteet();
-            assertEquals(oikeatPistein[i], n.toString());
+            assertEquals(muutPistein[i], n.lisaaPisteet().toString());
         }
     }
 
     // Testataan muutaPostfixiin()-metodia
     @Test
     public void muutaPostfixiinToimiiLyhyilla() {
-        for (int i = 0; i < lyhyetOikeat.length; i++) {
-            jono = luoJono(lyhyetOikeat[i]);
+        for (int i = 0; i < lyhyet.length; i++) {
+            jono = luoJono(lyhyet[i]);
             n = new Notaationmuuntaja(jono);
             n.lisaaPisteet();
-            assertEquals(lyhyetOikeatPostfix[i], n.muutaPostfixiin().toString());
+            assertEquals(lyhyetPostfix[i], n.muutaPostfixiin().toString());
         }
     }
 
     @Test
     public void muutaPostfixiinToimiiTailla() {
-        for (int i = 0; i < taitOikeat.length; i++) {
-            jono = luoJono(taitOikeat[i]);
+        for (int i = 0; i < tait.length; i++) {
+            jono = luoJono(tait[i]);
             n = new Notaationmuuntaja(jono);
             n.lisaaPisteet();
-            assertEquals(taitOikeatPostfix[i], n.muutaPostfixiin().toString());
+            assertEquals(taitPostfix[i], n.muutaPostfixiin().toString());
         }
     }
 
     @Test
     public void muutaPostfixiinToimiiOikeilla() {
-        for (int i = 0; i < oikeat.length; i++) {
-            jono = luoJono(oikeat[i]);
+        for (int i = 0; i < muut.length; i++) {
+            jono = luoJono(muut[i]);
             n = new Notaationmuuntaja(jono);
             n.lisaaPisteet();
-            assertEquals(oikeatPostfix[i], n.muutaPostfixiin().toString());
+            assertEquals(muutPostfix[i], n.muutaPostfixiin().toString());
         }
     }
 
-//    // apumetodi
-//    private char[] muunnaTauluksi(String s) {
-//        char[] t = new char[s.length() + 1];
-//        for (int i = 0; i < s.length(); i++) {
-//            t[i] = s.charAt(i);
-//        }
-//        t[s.length()] = '\0';
-//        return t;
-//    }
-//    
-//    private String muunnaMerkkijonoksi(char[] t) {
-//        String s = "";
-//        for (int i = 0; t[i] != '\0'; i++) {
-//            s += t[i];
-//        }
-//        return s;
-//    }
     private Jono<Character> luoJono(String s) {
         Jono<Character> jono = new Jono<>();
         for (int i = 0; i < s.length(); i++) {

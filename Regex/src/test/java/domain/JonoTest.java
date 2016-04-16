@@ -1,21 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author mikkomaa
- */
 public class JonoTest {
 
     Jono<Character> jono;
@@ -27,10 +15,6 @@ public class JonoTest {
     @Before
     public void setUp() {
         jono = new Jono<>();
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test
@@ -110,6 +94,28 @@ public class JonoTest {
         assertEquals(false, jono.onkoTyhja());
     }
     
+    @Test
+    public void luoKopioToimiiOikeinTyhjalla() {
+        Jono<Character> kopio = jono.luoKopio();
+        assertEquals(jono.toString(), kopio.toString());
+    }
+    
+    @Test
+    public void luoKopioToimiiOikeinPienella() {
+        lisaaAlkioita(5);
+        Jono<Character> kopio = jono.luoKopio();
+        assertEquals(jono.toString(), kopio.toString());
+    }
+    
+    @Test
+    public void luoKopioToimiiOikeinKunAlkiotauluPyorahtaa() {
+        lisaaAlkioita(6);
+        poistaAlkioita(5);
+        lisaaAlkioita(4);
+        poistaAlkioita(1);
+        Jono<Character> kopio = jono.luoKopio();
+        assertEquals(jono.toString(), kopio.toString());
+    }
 
     private void lisaaAlkioita(int maara) {
         for (int i = 0; i < maara; i++) {

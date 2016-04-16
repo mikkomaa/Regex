@@ -6,80 +6,32 @@ package sovelluslogiikka;
 import domain.*;
 
 /**
- * Luokka tarkistaa, onko säännöllinen lauseke syntaksin mukainen, ja muuntaa
- * infix-notaatiossa olevan lausekkeen postfix-muotoon
+ * Luokka muuntaa infix-notaatiossa olevan, syntaksin mukaisen lausekkeen
+ * postfix-muotoon
  */
 public class Notaationmuuntaja {
 
     private Jono<Character> lauseke;
-    private char[] ops = {'(', ')', '|', '*', '?'};
 
     /**
      * Luokan konstruktori
      *
      * @param infix Infix-notaatiossa oleva säännöllinen lauseke
      */
-    public Notaationmuuntaja(Jono<Character> infix) {
-        this.lauseke = infix;
+    public Notaationmuuntaja(final Jono<Character> infix) {
+        this.lauseke = infix.luoKopio();
     }
 
     /**
-     * Metodi tarkistaa, onko säännöllisen lausekkeen syntaksi oikein.
+     * Metodi muuntaa lausekkeen postfix-muotoon, josta voidaan luoda automaatti
      *
-     * @return Palauttaa 'x', jos syntaksi on oikein. Muuten palauttaa 1.
-     * merkin, jossa havaitaan virhe
+     * @return Palauttaa muunnetun lausekkeen
      */
-    public char onkoLausekeOikein() {
-        int sulkuja = 0; // avointen sulkujen määrä
-        char edellinen = '|'; // 'x' tarkoittaa normaalia merkkiä
-        Jono<Character> tarkistettu = new Jono<>();
-
-        while (!lauseke.onkoTyhja()) {
-            char c = lauseke.poista();
-            switch (c) {
-                case '\\':
-                    if (lauseke.onkoTyhja()) {
-                        return '\\'; // lopussa yksinäinen \-merkki
-                    }
-                    tarkistettu.lisaa(c);
-                    c = lauseke.poista();
-                    edellinen = 'x';
-                    break;
-                case '(':
-                    sulkuja++;
-                    edellinen = '(';
-                    break;
-                case ')':
-                    if (edellinen == '|' || edellinen == '(' || --sulkuja < 0) {
-                        return ')';
-                    }
-                    edellinen = ')';
-                    break;
-                case '|':
-                    if (edellinen == '|' || edellinen == '(' || lauseke.onkoTyhja()) {
-                        return '|';
-                    }
-                    edellinen = '|';
-                    break;
-                case '*':
-                    if (edellinen == '|' || edellinen == '(' || edellinen == '*') {
-                        return '*';
-                    }
-                    edellinen = '*';
-                    break;
-                default:
-                    // tavallinen merkki
-                    edellinen = 'x';
-                    break;
-            }
-            tarkistettu.lisaa(c);
-        }
-
-        if (sulkuja > 0) {
-            return '(';
-        }
-        lauseke = tarkistettu;
-        return 'x';
+    public Jono<Character> muunna() {
+        poistaHakasulut();
+        lisaaPisteet();
+        muutaPostfixiin();
+        return lauseke;
     }
 
     /**
@@ -181,14 +133,43 @@ public class Notaationmuuntaja {
         return lauseke;
     }
 
-//    private boolean onkoTaulussa(char[] taulu, char c) {
-//        for (int i = 0; i < taulu.length; i++) {
-//            if (taulu[i] == c) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+    public Jono<Character> poistaHakasulut() {
+        Jono uusi = new Jono<>();
+
+        while (!lauseke.onkoTyhja()) {
+            char c = lauseke.poista();
+            switch (c) {
+                case '\\':
+                    uusi.lisaa(c);
+                    uusi.lisaa(lauseke.poista());
+                    break;
+                case '[':
+                    muutaNormaalisuluiksi(uusi);
+                    break;
+                default:
+                    uusi.lisaa(c);
+                    break;
+            }
+        }
+
+        lauseke = uusi;
+        return lauseke;
+    }
+
+    private void muutaNormaalisuluiksi(Jono<Character> uusi) {
+        char alku = lauseke.poista();
+        lauseke.poista(); // väliviiva
+        char loppu = lauseke.poista();
+        lauseke.poista(); // ']'
+
+        uusi.lisaa('(');
+        while (alku < loppu) {
+            uusi.lisaa(alku++);
+            uusi.lisaa('|');
+        }
+        uusi.lisaa(loppu);
+        uusi.lisaa(')');
+    }
 
     @Override
     public String toString() {

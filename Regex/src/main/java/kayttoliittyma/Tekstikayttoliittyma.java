@@ -10,7 +10,7 @@ import sovelluslogiikka.*;
  */
 public class Tekstikayttoliittyma implements Kayttoliittyma {
 
-    String[] args;
+    String[] args; // komentoriviparametrit
     Scanner lukija;
 
     public Tekstikayttoliittyma(String[] args, Scanner lukija) {
@@ -21,9 +21,9 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
     @Override
     public void kaynnista() {
         Jono<Character> lauseke = kasitteleParametrit();
-        Jono<Character> postfix = muunnaLauseke(lauseke);
-        Automaatinluoja luoja = new Automaatinluoja();
-        Tila nfa = luoja.luoAutomaatti(postfix);
+        tarkistaLauseke(lauseke);
+        lauseke = new Notaationmuuntaja(lauseke).muunna();
+        Tila nfa = new Automaatinluoja().luoAutomaatti(lauseke);
         Automaatti automaatti = new Automaatti(nfa);
 
         while (lukija.hasNextLine()) {
@@ -50,15 +50,13 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
         return lauseke;
     }
 
-    private Jono<Character> muunnaLauseke(Jono<Character> lauseke) {
-        Notaationmuuntaja muuntaja = new Notaationmuuntaja(lauseke);
-        char c = muuntaja.onkoLausekeOikein();
+    private void tarkistaLauseke(Jono<Character> lauseke) {
+        Notaationtarkistaja tarkistaja = new Notaationtarkistaja(lauseke);
+        char c = tarkistaja.onkoLausekeOikein();
         if (c != 'x') {
             tulostaLausekevirhe();
             System.exit(0);
         }
-        muuntaja.lisaaPisteet();
-        return muuntaja.muutaPostfixiin();
     }
 
     private void tulostaAvausvirhe() {

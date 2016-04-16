@@ -3,8 +3,6 @@
  */
 package kayttoliittyma;
 
-import java.util.Scanner;
-
 /**
  * Luokka on käyttöliittymän rajapinta
  */

@@ -59,11 +59,23 @@ public class Jono<T> implements Sailio<T> {
     public boolean onkoTyhja() {
         return alku == loppu;
     }
-
-    // Apumetodi tarkistaa, onko jono täysi
-    private boolean onkoTaysi() {
-        int loppuaSeuraava = (loppu + 1 == koko ? 0 : loppu + 1);
-        return alku == loppuaSeuraava;
+    
+    /**
+     * Metodi luo jonosta kopion (erillisen olion), jossa on samat alkiot
+     * 
+     * @return Jonon kopio
+     */
+    public Jono<T> luoKopio() {
+        Jono<T> kopio = new Jono<>();
+        int temp = alku;
+        while (temp != loppu) {
+            kopio.lisaa(alkiot[temp]);
+            temp++;
+            if (temp == koko) {
+                temp = 0;
+            }
+        }
+        return kopio;
     }
 
     @Override
@@ -77,6 +89,12 @@ public class Jono<T> implements Sailio<T> {
             }
         }
         return s;
+    }
+    
+    // Apumetodi tarkistaa, onko jono täysi
+    private boolean onkoTaysi() {
+        int loppuaSeuraava = (loppu + 1 == koko ? 0 : loppu + 1);
+        return alku == loppuaSeuraava;
     }
 
     // Apumetodi suurentaa alkiotaulua

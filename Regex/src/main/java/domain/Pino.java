@@ -48,6 +48,20 @@ public class Pino<T> implements Sailio<T> {
         }
         return alkiot[maara - 1];
     }
+    
+    /**
+     * Metodi luo pinosta kopion (erillisen olion)
+     * 
+     * @return Pinon kopio
+     */
+//    public Pino<T> luoKopio() {
+//        Pino<T> kopio = new Pino<>();
+//        for (int i = 0; i < maara; i++) {
+//            kopio.lisaa(alkiot[i]);
+//            
+//        }
+//        return kopio;
+//    }
 
     @Override
     public String toString() {

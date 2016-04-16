@@ -1,21 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package domain;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- *
- * @author mikkomaa
- */
 public class TilaTest {
 
     Tila tila, tila2;
@@ -24,10 +12,6 @@ public class TilaTest {
     public void setUp() {
         tila = new Tila('x', true, null, null);
         tila2 = new Tila('\0', false, null, tila);
-    }
-
-    @After
-    public void tearDown() {
     }
 
     @Test

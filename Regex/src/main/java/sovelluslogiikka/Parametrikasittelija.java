@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Parametrikasittelija {
 
-    private String[] args;
+    private final String[] args;
 
     /**
      * Luokan konstruktori

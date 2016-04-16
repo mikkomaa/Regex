@@ -1,34 +1,12 @@
 package sovelluslogiikka;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import domain.Jono;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import sovelluslogiikka.Parametrikasittelija;
 
-/**
- *
- * @author mikkomaa
- */
 public class ParametrikasittelijaTest {
     
     Jono<Character> jono;
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void konstruktoriToimiiOikeinKunParametriOnTyhja() {
@@ -112,12 +90,4 @@ public class ParametrikasittelijaTest {
         assertEquals("abc def\\g h ijk", jono.toString());
     }
 
-    private String tulostaTaulu(char[] taulu) {
-        String s = "";
-        int i = 0;
-        while (taulu[i] != '\0') {
-            s += taulu[i++];
-        }
-        return s;
-    }
 }
