@@ -37,7 +37,7 @@ Luokan konstruktori luo kopion argumenttina saamastaan lausekkeesta Jono-luokan 
 
 ##### onkoLausekeOikein-metodi
 onkoLausekeOikein-metodi käy läpi konstruktorissa luodun lausekekopion tarkistaen, onko lauseke (teknisesti jono) syntaksin mukainen.
-
+```
 onkoLausekeOikein()
     while (lauseke ei ole tyhjä)
         char c = lauseke.poista()
@@ -47,7 +47,7 @@ onkoLausekeOikein()
             case '('
                 tee jotain
             ...
-
+```
 Metodin switch-lauseessa on useita case-kohtia, joista jokaisessa tehdään joitakin vakioaikaisia ja -tilaisia operaatioita. Lausekkeen yksittäinen merkki käsitellään jossakin case-kohdassa. Jos lauseke on syntaksin mukainen, koko lauseke käydään läpi. Jos lausekkeessa on virhe, metodin suoritus päättyy virheen kohdalla. Metodi käyttää muutamaa apumuuttujaa.
 
 Siis metodin aikavaativuus on O(n) ja tilavaativuus O(1).
