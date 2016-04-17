@@ -60,7 +60,7 @@ Luokan konstruktori luo kopion argumenttina saamastaan lausekkeesta Jono-luokan 
 
 ##### poistaHakasulut-metodi
 Metodi käy lausekkeen merkki merkiltä läpi tasan kerran. Jos lausekkeessa on hakasulkumerkintöjä, ne muutetaan toiminnaltaan vastaaviksi lausekkeen osiksi ilman hakasulkuja. Hakasulut tulkitaan siten, että esimerkiksi merkintä [c-f] tarkoittaa samaa kuin (c|d|e|f). Kun lauseke on käyty läpi, tuloksena on uusi, semantiikaltaan entistä vastaava lauseke ilman hakasulkuja.
-
+```
 poistaHakasulut()
     while (lauseke ei ole tyhjä)
         char c = lauseke.poista()
@@ -69,16 +69,16 @@ poistaHakasulut()
                 muunna hakasulkulauseke normaalisulkuiseksi
             case 'muut merkit'
                 lisää c uuteen lausekkeeseen sellaisenaan
-
+```
 Hakasuluissa voidaan käyttää kolmenlaisia merkkivälejä: [a-z], [A-Z] ja [0-9]. Koska aakkosia a-z on 26 kappaletta, yksittäisen viisi merkkiä pitkän hakasulkumerkinnän tilalle voi tulla enintään 26+25+2=53 merkkiä pitkä sulkulauseke. Tästä seuraa, että yksittäiset hakasulkujen poistot voidaan tehdä vakioajassa ja -tilassa.
 
-Tuloksena oleva muunnettu säännöllinen lauseke on pituudeltaan alkuperäinen lauseke kerrottuna jollain vähintään yhden suuruisella kertoimella.
+Tuloksena oleva muunnettu säännöllinen lauseke on pituudeltaan alkuperäinen lauseke kerrottuna jollain vähintään yhden suuruisella kertoimella k. Toisaalta kerroin k on aina alle kymmenen.
 
 Siis metodin aika- ja tilavaativuus on O(n).
 
 ##### lisaaPisteet-metodi
-Metodi lisää säännölliseen lausekkeeseen pisteet katenaatioiden merkiksi. Esim. käyttäjän antama lauseke abc muutetaan muotoon a.b.c.
-
+Metodi lisää säännölliseen lausekkeeseen pisteet katenaatioiden merkiksi. Esimerkiksi käyttäjän antama lauseke abc muutetaan muotoon a.b.c.
+```
 lisaaPisteet()
     while (lauseke ei ole tyhjä)
         char c = lauseke.poista()
@@ -87,16 +87,16 @@ lisaaPisteet()
             lisää uuteen lausekkeeseen .
         else
             lisää uuteen lausekkeeseen c
-
+```
 Oikea metodi on teknisten yksityiskohtien vuoksi mutkikkaampi, mutta toimintaidea on pseudokoodin mukainen.
 
-Metodi käy lausekkeen läpi kertaalleen merkki kerrallaan ja luo samalla uuden lausekkeen. Uusi lauseke on pisteiden lisäämisen vuoksi pituudeltaan alkuperäinen lauseke kerrottuna jollain vähintään yhden suuruisella kertoimella k, missä k on (tässä sivuutettujen teknisten seikkojen vuoksi) enintään noin kolme.
+Metodi käy lausekkeen läpi kertaalleen merkki kerrallaan ja luo samalla uuden lausekkeen. Uusi lauseke on pisteiden lisäämisen vuoksi pituudeltaan alkuperäinen lauseke kerrottuna jollain vähintään yhden suuruisella kertoimella k. Kerroin k on (tässä sivuutettujen teknisten seikkojen vuoksi) enintään noin kolme.
 
 Metodin aika- ja tilavaativuus on O(n).
 
 ##### muutaPostfixiin-metodi
 Metodi luo infix-notaatiossa olevasta lausekkeesta uuden, postfix-muodossa olevan lausekkeen. Metodi käyttää shunting-yard-algoritmia.
-
+```
 muutaPostfixiin()
     while (lauseke ei ole tyhjä)
         char c = lauseke.poista()
@@ -106,7 +106,7 @@ muutaPostfixiin()
             case '('
                 tee jotain
             ...
-
+```
 Metodin switch-lauseessa on useita case-kohtia, joista jokaisessa suoritetaan joitakin vakioaikaisia ja -tilaisia operaatioita. Lausekkeen yksittäinen merkki käsitellään jossakin case-kohdassa. Metodi käyttää apuna pinoa, johon väliaikaisesti säilötään operaattoreita.
 
 Koska metodi käy läpi koko lausekkeen ja luo samalla uuden, aika- ja tilavaativuus on O(n).
@@ -121,24 +121,26 @@ täydentyy...
 #### Pino
 Luokka Pino toteuttaa pinon ja siihen muutaman yksinkertaisen pino-operaation. Pinon sisällä alkiot talletetaan taulukkoon.
 
-Konstruktori luo pinon, jossa on aluksi tilaa kahdeksalle alkiolle. Luonnin aika- ja tilavaativuudet ovat siis vakioita.
+Konstruktori luo pinon, jossa on aluksi tilaa kahdeksalle alkiolle. Konstruktorin aika- ja tilavaativuus on siis O(1).
 
-lisaa-metodi lisää alkion pinoon. Normaalisti metodin aika- ja tilavaativuus on selvästi vakio. Jos alkiotaulu on täynnä, metodi luo uuden, kooltaan kaksinkertaisen taulun ja kopioi entiset alkiot siihen. Tällöin aika- ja tilavaativuus on O(n), mutta tasoitetun vaativuusanalyysin perusteella vaativuudet säilyvät kokonaisuutena vakiona.
+lisaa-metodi lisää alkion pinoon. Normaalisti metodin aika- ja tilavaativuus on selvästi O(1). Jos alkiotaulu on täynnä, metodi luo uuden, kooltaan kaksinkertaisen taulun ja kopioi entiset alkiot siihen. Tällöin aika- ja tilavaativuus on O(n) suhteessa pinossa olevien alkioiden määrään. Mutta tasoitetun vaativuusanalyysin perusteella vaativuudet säilyvät silti kokonaisuutena vakiona.
 
-poista-metodi palauttaa pinon päällimmäisen alkion ja vähentää alkioiden määrää kuvaavaa muuttujaa yhdellä. Aika- ja tilavaativuus on vakio.
+poista-metodi palauttaa pinon päällimmäisen alkion ja vähentää alkioiden määrää kuvaavaa muuttujaa yhdellä. Aika- ja tilavaativuus on O(1).
 
-onkoTyhja-metodi palauttaa tiedon siitä, onko pino tyhjä. Aika- ja tilavaativuus on vakio.
+onkoTyhja-metodi palauttaa tiedon siitä, onko pino tyhjä. Aika- ja tilavaativuus on O(1).
 
-kurkista-metodi palauttaa pinon päällimmäisen alkion poistamatta sitä pinosta. Aika- ja tilavaativuus on vakio.
+kurkista-metodi palauttaa pinon päällimmäisen alkion poistamatta sitä pinosta. Aika- ja tilavaativuus on O(1).
 
-Yhteenveto pinosta on, että yksittäisten metodien aika- ja tilavaativuudet ovat tasoitetun analyysin mielessä vakioita. Koko pinon tilavaativuus on O(n), sillä jokainen alkio vie yhden paikan alkiotaulusta. Pinoon ei toteutettu dynaamista alkiotaulun pienennystä, sillä se ei ollut tarpeen ohjelman kannalta; ohjelmassa käytettävät pinot ovat suurimmillaankin pieniä käytettävissä olevaan muistiin nähden.
+Pinoon ei toteutettu dynaamista alkiotaulun pienennystä, sillä se ei ollut tarpeen ohjelman kannalta; ohjelmassa käytettävät pinot ovat suurimmillaankin pieniä käytettävissä olevaan muistiin nähden.
+
+Yhteenveto pinosta on, että yksittäisten metodien aika- ja tilavaativuudet ovat tasoitetun analyysin mielessä vakioita. Koko pinon tilavaativuus on O(n) suhteessa pinossa olevien alkioiden määrään, sillä jokainen alkio vie yhden paikan alkiotaulusta.
 
 #### Jono
 Luokka Jono toteuttaa tavanomaisen jonon.
 
 Jonon konstruktoriin ja metodeihin lisaa, poista, kurkista ja onkoTyhja pätee sama, mitä edellä sanottiin pinon metodeista. Toiminnallisena erona on vain se, että jonoa käsitellään kummastakin päästä. Jonossa on myös aika- ja tilavaativuudeltaan vakioarvoinen apumetodi onkoTaysi.
 
-Lisäksi luokassa on luoKopio-metodi, joka luo jonosta kopion (eri olion). Kopiolla on samat alkiot kuin alkuperäisellä jonolla, joten kopion tekemisen aika- ja tilavaativuus on O(n). Kopioimismahdollisuus osoittautui koodin selkeyden kannalta hyödylliseksi parissa sovelluslogiikkaluokkien kohdassa.
+Lisäksi luokassa on luoKopio-metodi, joka luo jonosta kopion (eri olion). Kopiolla on samat alkiot kuin alkuperäisellä jonolla, joten kopion tekemisen aika- ja tilavaativuus on O(n). luoKopio-metodi osoittautui koodin selkeyden kannalta hyödylliseksi parissa sovelluslogiikkaluokkien kohdassa.
 
 Jonoonkaan ei ollut tarvetta toteuttaa alkiotaulun dynaamista piennnystä.
 
@@ -146,11 +148,11 @@ Jonoonkaan ei ollut tarvetta toteuttaa alkiotaulun dynaamista piennnystä.
 Luokka Tila on äärellisen automaatin rakennuspalikka. Se sisältää muutaman muuttujan. Luokassa ei ole muuta toiminnallisuutta kuin setterit ja getterit.
 
 ### Käyttöliittymä
-Tekstikäyttöliittymä toteuttaa ohjelman käyttöliittymän. Luokka kutsuu sovelluslogiikkaluokkia edellä kerrotussa järjestyksessä. Jos käyttäjän antamien parametrien käsittelyssä ei ilmene virheitä, luokka välittää luettavan tiedoston rivi kerrallaan automaatille ja tarvittaessa tulostaa rivit.
+Tekstikayttoliittyma-luokka toteuttaa ohjelman käyttöliittymän. Luokka kutsuu sovelluslogiikkaluokkia alussa kerrotussa järjestyksessä. Jos käyttäjän antamien parametrien käsittelyssä ei ilmene virheitä, luokka välittää luettavan tiedoston rivi kerrallaan automaatille ja tarvittaessa tulostaa rivit.
 
 Suurin osan luokan koodia on reagointia logiikkaluokkien paluuarvoihin, jotta käyttäjälle tulostetaan tarvittaessa järkevä virheilmoitus.
 
-Ohjelman tavanomaisessa käytössä luettava tiedosto on selvästi pitempi kuin komentoriviparametrit. Tällöin käyttöliittymän aikavaativuus on O(n) suhteessa tiedoston pituuteen, sillä ohjelman suorituksen aikana koko tiedosto käydään läpi kerran (rivi kerrallaan).
+Kun ohjelmaa käytetään tavanomaisesti, luettava tiedosto on selvästi pitempi kuin komentoriviparametrit. Tällöin käyttöliittymän aikavaativuus on O(n) suhteessa tiedoston pituuteen, sillä ohjelman suorituksen aikana koko tiedosto käydään läpi kerran (rivi kerrallaan).
 
 Käyttöliittymän tilavaativuuden ilmaiseminen lyhyesti on hieman epämääräistä, sillä luokassa luodaan oliot sovelluslogiikkaluokista. Jos olioiden luonti jätetään huomiotta, tilavaativuus on O(n) suhteessa komentoriviparametrien pituuteen tai luettavan tiedoston pisimmän rivin pituuteen, kumpi sattuu olemaan pitempi. Tilavaativuus voi siis olla huomattavan suuri, jos luettavassa tiedostossa on vaikkapa vain yksi erittäin pitkä rivi.
 
@@ -158,7 +160,7 @@ Käyttöliittymän tilavaativuuden ilmaiseminen lyhyesti on hieman epämääräi
 Tähän asiaa testien perusteella...
 
 ## Puutteet ja parannusehdotukset
-Tiedossa ei ole bugeja.
+Tiedossa ei ole bugeja. täydentyy...
 
 ## Lähteet
-
+täydentyy...?
