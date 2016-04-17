@@ -17,7 +17,7 @@ Cobertura- ja Pit-raportit ovat mukana testidokumenteissa.
 
 ## Suorituskykytestaus
 ### Automaattiset testit
-Ohjelmaan on kirjoitettu Suoritustesti-luokka, joka automatisoi suorituskykytestauksen. Testit voidaan suorittaa ajamalla ohjelma komentoriviltä komennolla "ohjelmannimi testi". Tällöin ohjelma käynnistää normaalin käyttöliittymän sijasta Suoritustesti-luokan ja ajaa testit.
+Ohjelmaan on kirjoitettu Suorituskykytesti-luokka, joka automatisoi suorituskykytestauksen. Testit voidaan suorittaa ajamalla ohjelma komentoriviltä komennolla "ohjelmannimi testi". Tällöin ohjelma käynnistää normaalin käyttöliittymän sijasta Suorituskykytesti-luokan ja ajaa testit.
 
 Testiaineisto määritellään tiedostoissa lausekkeet.txt ja tiedostot.txt. Jokainen tiedostot.txt-tiedostossa nimetty tiedosto testataan jokaisella lausekkeet.txt-tiedostossa mainitulla säännöllisellä lausekkeella. Jos esim. lausekkeet.txt sisältää kolme lauseketta ja tiedostot.txt kaksi tiedostonimeä, ajetaan yhteensä kuusi erilaista testiä. Jokainen kuudesta testistä ajetaan kymmenen kertaa. Yhden testin suoritusaika saadaan kymmenen testiajon keskiarvona.
 
@@ -25,7 +25,7 @@ Testitulokset kirjoitetaan testiraportit.txt-tiedostoon. Jos tiedosto on olemass
 
 Automaattinen testaus simuloi ohjelman normaalia toimintaa. Testien aluksi ohjelma lukee lausekkeet.txt- ja tiedostot.txt-tiedostojen sisällöt muistiin yksittäisiksi String-merkkijonoiksi. Tästä eteenpäin ohjelma toimii lähes samalla tavalla kuin, jos käyttäjä olisi antanut lausekkeen ja tiedostonimen komentoriviltä.
 
-Poikkeuksena on kuitenkin se, ettei testiympäristö tulosta rivejä ruudulle (eikä muuallekaan). Tähän on pari syytä. Ruudulle tulostus on ensinnäkin suhteellisen hidasta ja riippuu myös käyttöjärjestelmän toteutuksesta. Suorituskykytestien tarkoituksena on testata ohjelman toteutusalgoritmien tehokkuutta, ei ruudulle tulostamisen. Toiseksi tulostuksen hitaus aiheuttaisi sen, että ohjelman tehokkuuden vertailu eri lausekkeilla vaikeutuisi, koska ruudulle tulostuksia voisi olla eri lausekkeilla huomattavasti eri määrä. Ilman tulostusta saa paremman kuvan ohjelman suhteellisesta nopeudesta erilaisilla lausekkeilla.
+Poikkeuksena on kuitenkin se, ettei testiympäristö tulosta rivejä ruudulle (eikä muuallekaan). Tähän on pari syytä. Ruudulle tulostus on suhteellisen hidasta ja riippuu myös käyttöjärjestelmän toteutuksesta. Suorituskykytestien tarkoituksena on testata ohjelman toteutusalgoritmien tehokkuutta, ei ruudulle tulostamisen. Toiseksi tulostuksen hitaus aiheuttaisi sen, että ohjelman tehokkuuden vertailu eri lausekkeilla vaikeutuisi, koska ruudulle tulostuksia voisi olla eri lausekkeilla huomattavasti eri määrä. Ilman tulostusta saa paremman kuvan ohjelman suhteellisesta nopeudesta erilaisilla lausekkeilla.
 
 ### Omien testien tekeminen
 Käyttäjä voi helposti lisätä omia suorituskykytestejä. Lausekkeita voi lisätä lausekkeet.txt-tiedostoon, yhdelle riville yksi lauseke. Tiedostonimiä voi lisätä tiedostot.txt-tiedostoon, yhdelle riville yksi nimi. Tiedostojen viimeisen rivin loppuun ei kannata laittaa rivinvaihtoa.

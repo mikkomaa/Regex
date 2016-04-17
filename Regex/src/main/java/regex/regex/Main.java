@@ -18,7 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
         if (args.length == 1 && args[0].equals("testi")) { // ajetaan testit
-            Kayttoliittyma k = new Suoritustesti();
+            Kayttoliittyma k = new Suorituskykytesti();
             k.kaynnista();
         } else { // normaali suoritus
             Kayttoliittyma k = new Tekstikayttoliittyma(args, new Scanner(System.in));

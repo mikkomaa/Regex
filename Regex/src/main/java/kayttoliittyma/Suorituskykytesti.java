@@ -6,24 +6,20 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import sovelluslogiikka.Automaatinluoja;
-import sovelluslogiikka.Automaatti;
-import sovelluslogiikka.Notaationmuuntaja;
-import sovelluslogiikka.Notaationtarkistaja;
-import sovelluslogiikka.Parametrikasittelija;
+import sovelluslogiikka.*;
 
 /**
  * Luokka toteuttaa automaattiset suorituskykytestit. Luokka ei ole osa ohjelman
  * varsinaista toiminnallisuutta
  */
-public class Suoritustesti implements Kayttoliittyma {
+public class Suorituskykytesti implements Kayttoliittyma {
 
     ArrayList<String> lausekkeet; // testattavat lausekkeet
     ArrayList<String> tiedostot; // testattavat tiedostot
     FileWriter raportti;
     Automaatti automaatti;
     Scanner lukija;
-    private final int KERTOJA = 10; // montako kertaa sama testi ajetaan
+    private final int KERTOJA = 1; // montako kertaa sama testi ajetaan
 
     @Override
     public void kaynnista() {
@@ -92,7 +88,7 @@ public class Suoritustesti implements Kayttoliittyma {
     private void ajaTestit() {
         try {
             raportti.write("Testataan jokainen tiedosto kaikilla lausekkeilla.\n"
-                    + "Kukin suoritusaika on " + KERTOJA + ". suorituskerran keskiarvo.\n\n");
+                    + "Kukin suoritusaika on " + KERTOJA + " suorituskerran keskiarvo.\n\n");
 
             for (String tiedosto : tiedostot) {
                 System.out.print("Testataan tiedostoa " + tiedosto + "... ");
@@ -120,7 +116,9 @@ public class Suoritustesti implements Kayttoliittyma {
                 long aikaAlussa = System.currentTimeMillis();
                 automaatti = alustaTestiymparisto(regex, tiedosto);
                 while (lukija.hasNextLine()) {
-                    automaatti.suorita(lukija.nextLine());
+                    String s = lukija.nextLine();
+                    if (automaatti.suorita(s))
+                        System.out.println(s);
                 }
                 long aikaLopussa = System.currentTimeMillis();
 
