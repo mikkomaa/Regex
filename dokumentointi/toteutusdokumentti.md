@@ -11,7 +11,7 @@ Omia tietorakenteita ohjelmassa ovat pino ja jono. Kummatkin kasvavat tarvittaes
 Ohjelmassa on tekstipohjainen käyttöliittymä.
 
 ### Luokkien väliset yhteydet
-Luokkien väliset yhteydet näkyvät toteutusvaiheen luokkakaaviossa. Se on dokumenttikansiossa.
+Ohjelman arkkitehtuuri on kerrosmainen. Kolmiosainen rakenne voidaan nähdä kolmena kerroksena, jossa ylempi kerros tuntee alapuolellaan olevia luokkia, mutta ei päinvastoin. Luokkien väliset yhteydet näkyvät toteutusvaiheen luokkakaaviossa. Se on dokumenttikansiossa.
 
 ### Sovelluslogiikkaluokkien toiminnan yleispiirteet
 Kun käyttäjä käynnistää ohjelman, sovelluslogiikkaluokat suoritetaan seuraavassa järjestyksessä:
@@ -23,7 +23,18 @@ Kun käyttäjä käynnistää ohjelman, sovelluslogiikkaluokat suoritetaan seura
 5. Automaatti. Luokan avulla tarkistetaan, löytyykö tiedoston riveiltä lausekkeen kuvaama merkkijono.
 
 ### Säännöllisen lausekkeen syntaksi
-toteutetut ominaisuudet...
+Hakusanana oleva säännöllinen lauseke voi sisältää seuraavia operaatioita:
+- katenaatio eli normaali merkkien kirjoittaminen peräkkäin
+- tähti * : edeltävä merkki esiintyy merkkijonossa nolla kertaa tai useammin
+- yhdiste |
+- kysymysmerkki ? : kysymysmerkin paikalla voi olla mikä tahansa yksi merkki
+- merkkiväli [] : Merkkiväli löytää rivit, joilla esiintyy mikä tahansa väliin kuuluva merkki. Sallittuja merkkivälejä ovat pienet kirjaimet [a-z], isot kirjaimet [A-Z] ja numerot [0-9]. Merkkivälejä ei voi sekoittaa keskenään. Merkkivälissä jälkimmäisen merkin on oltava "suurempi" kuin ensimmäinen.
+
+Operaatioiden etusijajärjestys on sitovimmasta alkaen seuraava: *, katenaatio ja |. Kysymysmerkki kuvaa mitä tahansa normaalia merkkiä eikä siten ole etusijajärjestyksessä mukana. Merkkiväli tulkitaan samoin kuin vastaava sulkulauseke eli esim. [0-2] tarkoittaa samaa kuin (0|1|2).
+
+Suluilla () voi muuttaa normaalia etusijajärjestystä.
+
+Jos säännöllisessä lausekkeessa haluaa käyttää tavallisena merkkinä merkkejä *, |, ?, [, ], (, ) tai \, merkin eteen pitää kirjoittaa kenoviiva.
 
 ## Saavutetut aika- ja tilavaativuudet
 Jäljempänä olevat pseudokoodit kuvaavat metodeita sellaisella tarkkuudella, että metodien toimintaidea näkyy selkeästi. Luokkien metodeista käydään läpi ne, jotka ovat aika- tai tilavaativuudeltaan kiinnostavia ohjelman toiminnan kannalta.
