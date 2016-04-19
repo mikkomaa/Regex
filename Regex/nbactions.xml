@@ -29,7 +29,7 @@
         <properties>
             <exec.args>-classpath %classpath regex.regex.Main testi</exec.args>
             <exec.executable>java</exec.executable>
-            <exec.workingdir>/home/mikkomaa/NetBeansProjects/Regex/Regex/src/test</exec.workingdir>
+            <!-- <exec.workingdir>/home/mikkomaa/NetBeansProjects/Regex/Regex/src/test</exec.workingdir> -->
         </properties>
     </action>
     <action>
@@ -45,7 +45,7 @@
                 <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath regex.regex.Main testi</exec.args>
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
-                <exec.workingdir>/home/mikkomaa/NetBeansProjects/Regex/Regex/src/test</exec.workingdir>
+                <!-- <exec.workingdir>/home/mikkomaa/NetBeansProjects/Regex/Regex/src/test</exec.workingdir> -->
             </properties>
         </action>
     <action>
@@ -60,7 +60,7 @@
             <properties>
                 <exec.args>-classpath %classpath regex.regex.Main testi</exec.args>
                 <exec.executable>java</exec.executable>
-                <exec.workingdir>/home/mikkomaa/NetBeansProjects/Regex/Regex/src/test</exec.workingdir>
+                <!-- <exec.workingdir>/home/mikkomaa/NetBeansProjects/Regex/Regex/src/test</exec.workingdir> -->
             </properties>
         </action>
 </actions>

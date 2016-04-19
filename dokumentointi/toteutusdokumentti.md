@@ -22,6 +22,9 @@ Kun käyttäjä käynnistää ohjelman, sovelluslogiikkaluokat suoritetaan seura
 4. Automaatinluoja. Luokka luo lausekkeesta äärellisen automaatin.
 5. Automaatti. Luokan avulla tarkistetaan, löytyykö tiedoston riveiltä lausekkeen kuvaama merkkijono.
 
+### Säännöllisen lausekkeen syntaksi
+toteutetut ominaisuudet...
+
 ## Saavutetut aika- ja tilavaativuudet
 Jäljempänä olevat pseudokoodit kuvaavat metodeita sellaisella tarkkuudella, että metodien toimintaidea näkyy selkeästi. Luokkien metodeista käydään läpi ne, jotka ovat aika- tai tilavaativuudeltaan kiinnostavia ohjelman toiminnan kannalta.
 
@@ -36,9 +39,9 @@ TaulukoiLauseke-metodi kopioi komentoriviparametrina saadun säännöllisen laus
 Luokan konstruktori luo kopion argumenttina saamastaan lausekkeesta Jono-luokan luoKopio-metodilla. Konstruktorin aika- ja tilavaativuus on O(n).
 
 ##### onkoLausekeOikein-metodi
-onkoLausekeOikein-metodi käy läpi konstruktorissa luodun lausekekopion tarkistaen, onko lauseke (teknisesti jono) syntaksin mukainen.
+onkoLausekeOikein-metodi käy läpi konstruktorissa luodun lausekekopion tarkistaen, onko lauseke (teknisesti jono) syntaksin mukainen. Metodi kertoo paluuarvollaan, onko lauseke oikein tai mikä oli 1. virheellinen merkki.
 ```
-onkoLausekeOikein()
+char onkoLausekeOikein()
     while (lauseke ei ole tyhjä)
         char c = lauseke.poista()
         switch (c)
@@ -61,7 +64,7 @@ Luokan konstruktori luo kopion argumenttina saamastaan lausekkeesta Jono-luokan 
 ##### poistaHakasulut-metodi
 Metodi käy lausekkeen merkki merkiltä läpi tasan kerran. Jos lausekkeessa on hakasulkumerkintöjä, ne muutetaan toiminnaltaan vastaaviksi lausekkeen osiksi ilman hakasulkuja. Hakasulut tulkitaan siten, että esimerkiksi merkintä [c-f] tarkoittaa samaa kuin (c|d|e|f). Kun lauseke on käyty läpi, tuloksena on uusi, semantiikaltaan entistä vastaava lauseke ilman hakasulkuja.
 ```
-poistaHakasulut()
+Jono poistaHakasulut()
     while (lauseke ei ole tyhjä)
         char c = lauseke.poista()
         switch (c)
@@ -77,9 +80,9 @@ Tuloksena oleva muunnettu säännöllinen lauseke on pituudeltaan alkuperäinen 
 Siis metodin aika- ja tilavaativuus on O(n).
 
 ##### lisaaPisteet-metodi
-Metodi lisää säännölliseen lausekkeeseen pisteet katenaatioiden merkiksi. Esimerkiksi käyttäjän antama lauseke abc muutetaan muotoon a.b.c.
+Metodi lisää säännölliseen lausekkeeseen pisteet katenaatioiden merkiksi. Esimerkiksi käyttäjän antama lauseke abc muutetaan muotoon a.b.c. Paluuarvo on jono, jossa on säännöllinen lauseke lisättynä pisteillä.
 ```
-lisaaPisteet()
+Jono lisaaPisteet()
     while (lauseke ei ole tyhjä)
         char c = lauseke.poista()
         if (c:n jälkeen tarvitaan katenaatio)
@@ -95,9 +98,9 @@ Metodi käy lausekkeen läpi kertaalleen merkki kerrallaan ja luo samalla uuden 
 Metodin aika- ja tilavaativuus on O(n).
 
 ##### muutaPostfixiin-metodi
-Metodi luo infix-notaatiossa olevasta lausekkeesta uuden, postfix-muodossa olevan lausekkeen. Metodi käyttää shunting-yard-algoritmia.
+Metodi luo infix-notaatiossa olevasta lausekkeesta uuden, postfix-muodossa olevan lausekkeen ja palauttaa sen. Metodi käyttää shunting-yard-algoritmia.
 ```
-muutaPostfixiin()
+Jono muutaPostfixiin()
     while (lauseke ei ole tyhjä)
         char c = lauseke.poista()
         switch (c)
@@ -112,10 +115,94 @@ Metodin switch-lauseessa on useita case-kohtia, joista jokaisessa suoritetaan jo
 Koska metodi käy läpi koko lausekkeen ja luo samalla uuden, aika- ja tilavaativuus on O(n).
 
 #### Automaatinluoja
-täydentyy... Thompsonin algoritmi...
+luoAutomaatti-metodi luo postfix-muotoisesta säännöllisestä lausekkeesta epädeterministisen äärellisen automaatin. Metodi käyttää Thompsonin algoritmia.
+
+```
+Tila luoAutomaatti(lauseke)
+    pino = uusi pino
+    while (lauseke ei ole tyhjä)
+        char c = lauseke.poista()
+        switch (c)
+            case 'c on tavallinen merkki'
+                luo merkkiä kuvaava tila ja lisää se pinoon
+            case 'c on operaattori'
+                ota pinosta 1 tai 2 tilaa ja yhdistä ne oikealla tavalla
+```
+Metodin suorituksen päätyttyä metodissa apuna käytetty pino sisältää vain yhden tilan, joka on toisiinsa linkitetyistä tiloista muodostetun automaatin alkutila. Metodi palauttaa arvonaan automaatin alkutilan eli käytännössä valmiin automaatin.
+
+Metodissa tarkoitettuja operaattoreita ovat tässä vaiheessa käytännössä . (katenaatio), | ja *. Thompsonin algoritmia koskevassa Wikipedian artikkelissa on Rules-kohdassa kuvat siitä, miten merkkejä kuvaavia tiloja yhdistetään toisiinsa operaattoreita käsiteltäessä [https://en.wikipedia.org/wiki/Thompson's_construction].
+
+Yllä oleva pseudokoodi kuvaa yleisellä tasolla algoritmin toimintaidean. Aika- ja tilavaativuuden selvittämiseksi on tarpeen tarkastella koodia tarkemmin.
+
+Tarkastellaan ensin tilavaativuutta. Yksittäisen Tila-olion tilavaativuus on O(1). Kun tavallinen merkki muunnetaan tilaksi, luodaan kaksi Tila-oliota. Katenaatiota käsiteltäessä ei luoda uusia tiloja. |- ja *-operaatioissa luodaan kaksi uutta Tila-oliota kummassakin. Joten automaatin luomisen tilavaativuus on O(n) suhteessa lausekkeen pituuteen.
+
+Metodin aikavaativuuden voisi äkkiseltään arvioida olevan samaa luokkaa tilavaativuuden kanssa. Mutta osoittautuu, että aikavaativuus on neliöinen eli O(n^2) suhteessa lausekkeen pituuteen. Tämä johtuu siitä, että operaattoreita käsittelevät metodit käyttävät apumetodia, joka etsii siihen mennessä rakennetusta automaatin osasta lopputilan. Se etsitään algoritmilla, joka käy läpi linkitettyä listaa alkaen osan alkutilasta, kunnes löytyy osan lopputila.
+
+Ohjelman nopeuden kannalta neliöisellä aikavaativuudella ei ole käytännön merkitystä, ellei säännöllisen lausekkeen pituus ole kokoluokaltaan tuhansia merkkejä. Siksi koodi on tässä kohdassa kirjoitettu mahdollisimman yksinkertaiseksi, eikä aikavaativuutta ole pyritty enempää minimoimaan. Aikavaativuuden pystyisi laskemaan ainakin luokkaan O(nlogn), jos kunkin automaatin osan lopputiloja pitäisi rakennuksen aikana muistissa esimerkiksi hashmapissä.
 
 #### Automaatti
-täydentyy...
+##### suorita-metodi
+Luokka toteuttaa koodin, jolla valmiin automaatin läpi voi ajaa merkkijonoja eli tässä ohjelmassa tiedostosta luettuja rivejä. Jos riviltä löytyy säännöllisen lausekkeen kuvaama merkkijono, automaatti hyväksyy rivin ja paluuarvo on true. Jos merkkijonoa ei löydy, paluuarvo on false.
+
+Luokassa on yksi public-metodi:
+```
+boolean suorita(merkkijono)
+    nykyisetAktiivitilat = uusi pino
+    nykyisetAktiivitilat.lisaa(automaatin alkutila)
+    hyvaksy = false
+
+    for (i = 0, i < merkkijonon pituus, i = i + 1)
+        paivitaTila(merkkijonon i. merkki)
+        if (hyvaksy == true)
+            return true
+    return false
+```
+Metodi käy merkkijonon läpi merkki kerrallaan ja kutsuu jokaisen merkin kohdalla apumetodia paivitaTila. Apuna käytetään pinoa, jossa pidetään kunakin hetkenä tilat, jotka voivat myöhemmin johtaa hyväksyvään tilaan. Metodin aikavaativuus on O(n) suhteessa merkkijonon pituuteen. Tilavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen, sillä edellä todettiin, että automaatin tilojen määrä on lineaarinen suhteessa lausekkeen pituuteen.
+
+##### paivitaTila-metodi
+Apumetodi paivitaTila on seuraava:
+```
+paivitaTila(merkki)
+    uudetAktiivitilat = uusi pino
+    uudetAktiivitilat.lisaa(automaatin alkutila)
+
+    while (nykyisetAktiivitilat ei ole tyhja)
+        tila = nykyisetAktiivitilat.poista()
+        etene(tila, merkki, true, uudetAktiivitilat)
+    nykyisetAktiivitilat = uudetAktiivitilat
+```
+Metodi käy läpi nykyiset aktiivitilat tila kerrallaan. Metodi kutsuu kunkin tilan kohdalla apumetodia etene, joka etenee kyseisestä automaatin tilasta yhden askeleen eteenpäin. Samalla päivitetään aktiivitilojen joukko.
+
+Metodin aika- ja tilavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen.
+
+##### Etene-metodi
+Apumetodi etene käyttää rekursiota ja on toimintaidealtaan seuraava:
+```
+etene(alkutila, merkki, jatketaanko, uudetAktiivitilat)
+    if (alkutila on null)
+        return
+    else if (alkutila on hyväksyvä tila)
+        hyvaksy = true
+    else if (ollaan teknisessä välitilassa)
+        etene alkutilan uloslinkkiin 1
+        etene alkutilan uloslinkkiin 2
+    else if (merkki ei täsmää eli tästä ei voida edetä hyväksyvään tilaan)
+        return
+    else if (ei ole vielä edetty yhtään aitoa askelta)
+        etene seuraavaan tilaan
+    else // on edetty yksi "oikea" askel
+        uudetAktiivitilat(lisaa nykyinen tila)
+```
+Metodin toiminta-ajatus on yksinkertainen. Jos parametrina saatu alkutila on hyväksyvä tila, huomataan, että automaatti hyväksyy merkkijonon. Jos ei olla hyväksyvässä tilassa mutta alkutilan merkki täsmää parametrina saatuun merkkiin, edetään yksi askel eteenpäin ja lisätään aktiivitiloihin tila, johon saavuttiin.
+
+Teknisesti metodia monimutkaistaa se, että automaatissa on välitiloja, jotka eivät kuvaa merkkitiloja. Ongelma on ratkaistu metodissa lyhyesti käyttämällä rekursiota, kunnes päästään yksi aito askel eteenpäin. Automaatin rakenteen vuoksi rekursiolla ei käytännössä edetä kuin korkeintaan muutama askel. Voi arvioida, ettei rekursio tässä muodostu ongelmaksi ohjelman tehokkuuden kannalta.
+
+Metodin aika- ja tilavaativuus on O(1).
+
+##### Koko automaatin aika- ja tilavaativuudet
+Tarkastellaan kokonaisuutena luokan kolmen metodin aikavaativuutta. Olennaista on, että suorita-metodin aikavaativuus on O(n) suhteessa merkkijonon pituuteen ja metodi kutsuu jokaisen merkin kohdalla paivitaTila-metodia, jonka aikavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen. Koska lausekkeen pituus on yleensä paljon pienempi kuin merkkijonon pituus, saadaan automaatin aikavaativuudeksi O(n) suhteessa merkkijonon pituuteen. Tällöin lausekkeen pituuden voi mieltää aikavaativuuden kannalta joksikin vakiokertoimeksi.
+
+Tilavaativuudeksi saadaan vastaavalla päättelyllä neliöinen O(n^2) suhteessa säännöllisen lausekkeen pituuteen. Pahimman tapauksen toteutuminen tarkoittaisi hieman yksinkertaistaen sitä, että jossakin vaiheessa kaikki automaatin merkkitilat olisivat aktiivisia ja sama tilanne toteutuisi myös seuraavan askeleen aikana. On vaikeaa keksiä järkevää esimerkkiä niin pitkästä lausekkeesta, että asia aiheuttaisi käytännön ongelmia
 
 ### Omat tietorakenteet
 #### Pino
@@ -157,10 +244,10 @@ Kun ohjelmaa käytetään tavanomaisesti, luettava tiedosto on selvästi pitempi
 Käyttöliittymän tilavaativuuden ilmaiseminen lyhyesti on hieman epämääräistä, sillä luokassa luodaan oliot sovelluslogiikkaluokista. Jos olioiden luonti jätetään huomiotta, tilavaativuus on O(n) suhteessa komentoriviparametrien pituuteen tai luettavan tiedoston pisimmän rivin pituuteen, kumpi sattuu olemaan pitempi. Tilavaativuus voi siis olla huomattavan suuri, jos luettavassa tiedostossa on vaikkapa vain yksi erittäin pitkä rivi.
 
 ## Suorituskyky
-Tähän asiaa testien perusteella...
+Tähän asiaa yllä olevan analyysiin ja testien perusteella...
 
 ## Puutteet ja parannusehdotukset
-Tiedossa ei ole bugeja. täydentyy...
+Tiedossa ei ole bugeja. Parannusehdotus merkkivälien kuvaaminen automaatissa yhdellä tilalla. täydentyy...
 
 ## Lähteet
 täydentyy...?
