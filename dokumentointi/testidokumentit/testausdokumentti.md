@@ -82,10 +82,11 @@ Lauseke | 0,68 Mt (1x) | 3,4 Mt (5x) | 6,8 Mt (10x)
 ------- | ------------ | ----------- | -----------
 Jukola | 22 | 116 | 227
 s(u&#124;a*)n | 25 | 124 | 281
-(A&#124;a)(A&#124;a)([m-p]|P)(O&#124;u) | 27 | 138 | 271
+(A&#124;a)(A&#124;a)([m-p]&#124;P)(O&#124;u) | 27 | 138 | 271
 t[a-z]lon va | 42 | 207 | 441
 t[a-z][a-z][a-z][a-z] va | 72 | 360 | 730
-((M&#124;m)aanantai)&#124;((T&#124;t)iistai)&#124;((K&#124;k)eskiviikko)&#124;((T&#124;t)orstai)&#124;((P&#124;p)erjantai)&#124;((L&#124;l)auantai)&#124;((S&#124;s)unnuntai) | 68 | 345 | 702
+((M&#124;m)aanantai)&#124;((T&#124;t)iistai)&#124;((K&#124;k)eskiviikko)&#124;((T&#124;t)orstai)&#124; | 68 | 345 | 702
+((P&#124;p)erjantai)&#124;((L&#124;l)auantai)&#124;((S&#124;s)unnuntai)
 
 ![Suoritusaikakuva](https://github.com/mikkomaa/Regex/blob/master/dokumentointi/testidokumentit/suoritusajat.png)
 

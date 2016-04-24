@@ -63,7 +63,7 @@ Testattavien tiedostojen on oltava määrittelytiedostojen kanssa samassa kansio
 #### Testattavat tiedostot
 Suorituskykytestauksessa käytettiin Project Gutenbergin sivuilta haettua Aleksis Kiven Seitsemän veljestä-kirjaa. Kirja oli tavallisena tekstitiedostona.
 
-Tiedostolle ajetut testit ajettiin myös 5 ja 10 kertaa pidemmille tiedostoille, joihin oli kopioitu kirja peräkkäin 5 ja 10 kertaa. tiedostojen koot olivat 0,68, 3,4 ja 6,8 megatavua. Näin voitiin vertailla tiedoston koon vaikutusta suoritusaikoihin. Tiedostot ovat mukana testidokumenteissa (7veljesta.txt, 7veljestax5.txt ja 7veljestax10.txt).
+Tiedostolle ajetut testit ajettiin myös 5 ja 10 kertaa pidemmille tiedostoille, joihin oli kopioitu kirja peräkkäin 5 ja 10 kertaa. Tiedostojen koot olivat 0,68, 3,4 ja 6,8 megatavua. Näin voitiin vertailla tiedoston koon vaikutusta suoritusaikoihin. Tiedostot ovat mukana testidokumenteissa (7veljesta.txt, 7veljestax5.txt ja 7veljestax10.txt).
 
 #### Testihavaintoja
 Havaittiin, että ohjelman suoritusaika pysyy samalla tasolla kerrasta toiseen, kun samaa testiä ajetaan useasti (kokeiltiin viisi kertaa lausekkeella 'Jukola' ja viisi kertaa lausekkeella 's(u|a*)n'). Kahden pidemmän tiedoston kohdalla suoritusaika pysyi lähes täsmälleen samana kerrasta toiseen. Ohjelma näyttää siis toimivan joka kerta samalla tavalla, kun syöte on sama. Muu tulos olisikin varsin yllättävä.
@@ -89,4 +89,4 @@ t[a-z][a-z][a-z][a-z] va | 72 | 360 | 730
 
 ![Suoritusaikakuva](https://github.com/mikkomaa/Regex/blob/master/dokumentointi/testidokumentit/suoritusajat.png)
 
-
+Kuvasta huomataan, että ohjelman suoritusaika kasvaa lineaarisesti tiedostokoon kasvaessa. Kuvasta näkee myös, miten säännöllisen lausekkeen monimutkaisuus nostaa suoritusaikaa. Tämä johtuu siitä, että lausekkeen monimutkaisuus lisää myös suoritettavan automaatin monimutkaisuutta.
