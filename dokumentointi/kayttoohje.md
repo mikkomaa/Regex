@@ -8,27 +8,28 @@ Ajettava ohjelma on jar-pakettina. Ohjelman ajamiseksi koneellasi on oltava Java
 Kopioi tiedosto Regex-1.0-SNAPSHOT.jar github-repositorion release-kansiosta, ja tallenna se koneellesi.
 
 Ohjelma ajetaan komentoriviltä. Aja ohjelma komennolla
-
+```
 java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main tiedostonimi lauseke
-
-HUOM! LOPULLINEN OHJELMAVERSIO ON TARKOITUS SAADA HELPOMMIN AJETTAVAKSI (KOMENNOLLA java -cp Regex.jar tiedostonimi lauseke).
+```
+(HUOM! LOPULLINEN OHJELMAVERSIO ON TARKOITUS SAADA HELPOMMIN AJETTAVAKSI (KOMENNOLLA java -cp Regex.jar tiedostonimi lauseke).)
 
 tiedostonimi ja lauseke ovat haluamiasi parametreja. tiedostonimi on tiedosto, josta merkkijonoja etsitään. lauseke on säännöllinen lauseke, jonka perusteella merkkijonoja etsitään.
 
 Tiedoston on oltava samassa hakemistossa jar-paketin kanssa. Tai voit antaa tiedostonimen yhteydessä tiedostopolun, esim. Linuxissa tyyliin hakemisto/hakemisto/tiedostonimi.
 
 Jos sinulla esimerkiksi on jar-paketin kanssa samassa hakemistossa tiedosto 7veljesta.txt ja haluat etsiä siitä rivit, joilla esiintyy merkkijono Jukola, aja ohjelma komennolla 
-
+```
 java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main 7veljesta.txt Jukola
+```
 
 ### Komentotulkin vaikutus ohjelman ajamiseen
 
 Jos lausekkeessa tai tiedostopolussa/tiedostonimessä on käyttämäsi komentotulkin toimintaa ohjaavia merkkejä (esimerkiksi |, / tai -), tulkki ei välttämättä välitä parametreja ohjelmalle siinä muodossa, kuin tarkoitit. Komentotulkista riippuu, miten parametrit kannattaa tällöin kirjoittaa.
 
 Esimerkiksi Unixin/Linuxin bash-tulkissa parametrit kannattaa kirjoittaa heittomerkkien sisään. Tosin tällöin et voi sisällyttää itse lausekkeeseen heittomerkkejä. Edellinen ajoesimerkki olisi heittomerkkien kanssa
-
+```
 java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main '7veljesta.txt' 'Jukola'
-
+```
 Lisätietoa komentotulkin vaikutuksesta saat käyttämäsi tulkin ohjeesta (esim. komennolla man bash).
 
 ### Säännöllisen lausekkeen syntaksi
