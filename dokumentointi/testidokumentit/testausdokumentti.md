@@ -40,19 +40,24 @@ Näissä testeissä ei löytynyt vikoja ohjelmalogiikassa.
 
 ## Suorituskykytestaus
 ### Automaattiset testit
-Ohjelmaan on kirjoitettu Suorituskykytesti-luokka, joka automatisoi suorituskykytestauksen.
+Ohjelmaan on kirjoitettu Suorituskykytesti-luokka, joka automatisoi suorituskykytestauksen. Automaattinen testaus simuloi ohjelman normaalia toimintaa. Ohjelma toimii lähes samalla tavalla kuin, jos käyttäjä olisi antanut lausekkeen ja tiedostonimen komentoriviltä.
 
-Suorituskykytestit ajetaan, kun ohjelman käynnistää antamalla parametriksi pelkästään sanan testi. Tällöin ohjelma käynnistää normaalin käyttöliittymän sijasta Suorituskykytesti-luokan ja ajaa testit.
+Poikkeuksena on kuitenkin se, ettei testiympäristö tulosta rivejä ruudulle (eikä muuallekaan). Tähän on pari syytä. Suorituskykytestien tarkoituksena on testata ohjelman toteutusalgoritmien tehokkuutta, ei ruudulle tulostamista. Lisäksi tulostus on suhteellisen hidasta ja se saattaisi heikentää eri testikertojen tulosten vertailukelpoisuutta.
+
+#### Automaattisten testien ajaminen
+Käyttöohjeessa kerrotaan ohjelman normaalista käytöstä. Automaattiset testit voi ajaa helpoiten kopioimalla jar-paketin kanssa samaan kansioon viisi muuta tiedostoa: tiedostot.txt, lausekkeet.txt, 7veljesta.txt, 7veljestax5.txt ja 7veljestax10.txt. Nämä tiedostot löytyvät github-repositorion kansiosta dokumentointi/testidokumentit/suorituskykytestitiedostot.
+
+Suorituskykytestit ajetaan, kun ohjelman käynnistää antamalla parametriksi pelkästään sanan testi, eli komennolla
+```
+java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main testi
+```
+Tällöin ohjelma käynnistää normaalin käyttöliittymän sijasta Suorituskykytesti-luokan ja ajaa testit.
 
 Ajettavat testit määritellään tiedostoissa lausekkeet.txt ja tiedostot.txt. Jokainen tiedostot.txt-tiedostossa nimetty tiedosto testataan jokaisella lausekkeet.txt-tiedostossa mainitulla säännöllisellä lausekkeella. Jos esim. lausekkeet.txt sisältää kolme lauseketta ja tiedostot.txt kaksi tiedostonimeä, ajetaan yhteensä kuusi erilaista testiä.
 
 Yksittäinen testi ajetaan kymmenen kertaa, ja testin suoritusaika on näistä keskiarvo. Esimerkiksi edellisen kappaleen tapauksessa jokainen kuudesta testistä ajetaan kymmenen kertaa.
 
-Testitulokset kirjoitetaan testiraportit.txt-tiedostoon. Jos tiedosto on olemassa ennen testausta, se ylikirjoitetaan.
-
-Automaattinen testaus simuloi ohjelman normaalia toimintaa. Testien aluksi ohjelma lukee lausekkeet.txt- ja tiedostot.txt-tiedostojen sisällöt muistiin yksittäisiksi String-merkkijonoiksi. Tästä eteenpäin ohjelma toimii lähes samalla tavalla kuin, jos käyttäjä olisi antanut lausekkeen ja tiedostonimen komentoriviltä.
-
-Poikkeuksena on kuitenkin se, ettei testiympäristö tulosta rivejä ruudulle (eikä muuallekaan). Tähän on pari syytä. Suorituskykytestien tarkoituksena on testata ohjelman toteutusalgoritmien tehokkuutta, ei ruudulle tulostamista. Lisäksi tulostus on suhteellisen hidasta ja se saattaisi heikentää eri testikertojen tulosten vertailukelpoisuutta.
+Testitulokset kirjoitetaan testiraportit.txt-tiedostoon. Se tulee samaan kansioon, jossa muutkin tiedostot ovat. Jos tiedosto on olemassa ennen testausta, se ylikirjoitetaan.
 
 ### Omien testien tekeminen
 Käyttäjä voi helposti lisätä omia suorituskykytestejä. Lausekkeita voi lisätä lausekkeet.txt-tiedostoon, yhdelle riville yksi lauseke. Tiedostonimiä voi lisätä tiedostot.txt-tiedostoon, yhdelle riville yksi nimi.

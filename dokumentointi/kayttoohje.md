@@ -38,7 +38,7 @@ Hakusanana oleva säännöllinen lauseke voi sisältää seuraavia operaatioita:
 - tähti * : Edeltävä merkki esiintyy merkkijonossa nolla kertaa tai useammin. Esim. 'talo*n' löytää mm. rivit, joilla esiintyy 'taln', 'talon' tai 'taloon'.
 - yhdiste | : Lauseke 'a|b' löytää merkkijonot, joissa esiintyy merkki a tai b.
 - kysymysmerkki ? : Kysymysmerkin paikalla voi olla mikä tahansa yksi merkki. Esim. lauseke 't??o' löytää mm. rivit, joilla esiintyy 'talo', 'tulo' tai 'talous'.
-- merkkiväli [] : Merkkiväli löytää rivit, joilla esiintyy mikä tahansa väliin kuuluva merkki. Esim. [3-5] löytää rivit, joilla esiintyy numero 3, 4 tai 5, ja [m-p] rivit, joilla esiintyy kirjain m, n, o tai p. Sallittuja merkkivälejä ovat pienet kirjaimet [a-z], isot kirjaimet [A-Z] ja numerot [0-9]. Merkkivälejä ei voi sekoittaa keskenään. Merkkivälissä jälkimmäisen merkin on oltava "suurempi" kuin ensimmäinen.
+- merkkiväli [ ] : Merkkiväli löytää rivit, joilla esiintyy mikä tahansa väliin kuuluva merkki. Esim. [3-5] löytää rivit, joilla esiintyy numero 3, 4 tai 5, ja [m-p] rivit, joilla esiintyy kirjain m, n, o tai p. Sallittuja merkkivälejä ovat pienet kirjaimet [a-z], isot kirjaimet [A-Z] ja numerot [0-9]. Merkkivälejä ei voi sekoittaa keskenään. Merkkivälissä jälkimmäisen merkin on oltava "suurempi" kuin ensimmäinen.
 
 Operaatioiden etusijajärjestys on sitovimmasta alkaen seuraava: *, katenaatio ja |. Kysymysmerkki kuvaa mitä tahansa normaalia merkkiä eikä siten ole etusijajärjestyksessä mukana. Merkkiväli tulkitaan samoin kuin vastaava sulkulauseke eli esim. [0-2] tarkoittaa samaa kuin (0|1|2).
 
