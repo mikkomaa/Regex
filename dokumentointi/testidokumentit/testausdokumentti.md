@@ -76,15 +76,17 @@ Testeissä havaittiin, että suoritusaika on lineaarinen suhteessa tiedoston kok
 
 Havaittiin, että ohjelma on käyttökelpoinen megatavujenkin suuruisilla tiedostoilla. Pisimmällä eli 6,8 megatavun pituisella tiedostolla testien suoritusajat vaihtelivat 200 - 700 millisekunnin välillä eri lausekkeilla.
 
-Seuraavassa on erään testiajon tuloksia eri kokoisilla 7veljesta.txt-tiedostoilla eräillä etsityillä lausekkeilla. Ajat ovat millisekunteina.
+Seuraavassa on erään testiajon tuloksia eri kokoisilla 7veljesta.txt-tiedostoilla eräillä etsityillä lausekkeilla. Ajat ovat millisekunteina. Sama ensin taulukkona ja sitten kuvana.
 
 Lauseke | 0,68 Mt (1x) | 3,4 Mt (5x) | 6,8 Mt (10x)
 ------- | ------------ | ----------- | -----------
 Jukola | 22 | 116 | 227
-s(u|a*)n | 25 | 124 | 281
+s(u&#124;a*)n | 25 | 124 | 281
 (A|a)(A|a)([m-p]|P)(O|u) | 27 | 138 | 271
 t[a-z]lon va | 42 | 207 | 441
 t[a-z][a-z][a-z][a-z] va | 72 | 360 | 730
 ((M|m)aanantai)|((T|t)iistai)|((K|k)eskiviikko)|((T|t)orstai)|((P|p)erjantai)|((L|l)auantai)|((S|s)unnuntai) | 68 | 345 | 702
+
+![Suoritusaikakuva](https://github.com/mikkomaa/Regex/blob/master/dokumentointi/testidokumentit/suoritusajat.png)
 
 
