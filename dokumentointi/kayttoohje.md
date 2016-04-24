@@ -11,7 +11,7 @@ Ohjelma ajetaan komentoriviltä. Aja ohjelma komennolla
 ```
 java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main tiedostonimi lauseke
 ```
-(HUOM! LOPULLINEN OHJELMAVERSIO ON TARKOITUS SAADA HELPOMMIN AJETTAVAKSI (KOMENNOLLA java -cp Regex.jar tiedostonimi lauseke).)
+(Lopullisesta ohjelmaversiosta tulee ehkä helpommin ajettava, komennolla java -cp Regex.jar tiedostonimi lauseke.)
 
 tiedostonimi ja lauseke ovat haluamiasi parametreja. tiedostonimi on tiedosto, josta merkkijonoja etsitään. lauseke on säännöllinen lauseke, jonka perusteella merkkijonoja etsitään.
 
@@ -55,7 +55,5 @@ java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main testi
 ```
 Tällöin ohjelma ajaa testit ja kirjoittaa testiraportin samaan kansioon tiedostoon testiraportti.txt.
 
-Voit määritellä helposti omiakin testejä muokkaamalla tiedostoja tiedostot.txt ja lausekkeet.txt.
-
-Lisätietoa on testausdokumentin kohdassa Suorituskykytestaus. Testausdokumentti on github-repositorion kansiossa dokumentointi/testidokumentit.
+Voit määritellä helposti omiakin testejä muokkaamalla tiedostoja tiedostot.txt ja lausekkeet.txt. Lisätietoa on testausdokumentin kohdassa Suorituskykytestaus. Testausdokumentti on github-repositorion kansiossa dokumentointi/testidokumentit.
 
