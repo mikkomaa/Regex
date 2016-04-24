@@ -2,12 +2,7 @@ Testataan jokainen tiedosto kaikilla lausekkeilla.
 Kukin suoritusaika on 10 testikerran keskiarvo.
 
 Tiedosto: 7veljesta.txt
-  lauseke: Jukola, suoritusaika: 60 ms.
-  lauseke: Jukola, suoritusaika: 24 ms.
   lauseke: Jukola, suoritusaika: 30 ms.
-  lauseke: Jukola, suoritusaika: 22 ms.
-  lauseke: Jukola, suoritusaika: 23 ms.
-  lauseke: Jukola, suoritusaika: 22 ms.
   lauseke: s(u|a*)n, suoritusaika: 24 ms.
   lauseke: (Jukola)|(Jukola)|(Jukola), suoritusaika: 30 ms.
   lauseke: (A|a)(A|a)([m-p]|P)(O|u), suoritusaika: 29 ms.
@@ -17,11 +12,6 @@ Tiedosto: 7veljesta.txt
 
 Tiedosto: 7veljestax5.txt
   lauseke: Jukola, suoritusaika: 113 ms.
-  lauseke: Jukola, suoritusaika: 113 ms.
-  lauseke: Jukola, suoritusaika: 111 ms.
-  lauseke: Jukola, suoritusaika: 111 ms.
-  lauseke: Jukola, suoritusaika: 111 ms.
-  lauseke: Jukola, suoritusaika: 112 ms.
   lauseke: s(u|a*)n, suoritusaika: 121 ms.
   lauseke: (Jukola)|(Jukola)|(Jukola), suoritusaika: 141 ms.
   lauseke: (A|a)(A|a)([m-p]|P)(O|u), suoritusaika: 146 ms.
@@ -31,11 +21,6 @@ Tiedosto: 7veljestax5.txt
 
 Tiedosto: 7veljestax10.txt
   lauseke: Jukola, suoritusaika: 225 ms.
-  lauseke: Jukola, suoritusaika: 223 ms.
-  lauseke: Jukola, suoritusaika: 223 ms.
-  lauseke: Jukola, suoritusaika: 223 ms.
-  lauseke: Jukola, suoritusaika: 223 ms.
-  lauseke: Jukola, suoritusaika: 223 ms.
   lauseke: s(u|a*)n, suoritusaika: 242 ms.
   lauseke: (Jukola)|(Jukola)|(Jukola), suoritusaika: 282 ms.
   lauseke: (A|a)(A|a)([m-p]|P)(O|u), suoritusaika: 292 ms.

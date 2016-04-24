@@ -1,9 +1,4 @@
 Jukola
-Jukola
-Jukola
-Jukola
-Jukola
-Jukola
 s(u|a*)n
 (Jukola)|(Jukola)|(Jukola)
 (A|a)(A|a)([m-p]|P)(O|u)

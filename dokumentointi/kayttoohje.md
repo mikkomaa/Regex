@@ -47,5 +47,15 @@ Suluilla () voi muuttaa normaalia etusijajärjestystä. Esim. lauseke 'ab|cd' l�
 Jos säännöllisessä lausekkeessa haluaa käyttää tavallisena merkkinä merkkejä *, |, ?, [, ], (, ) tai \, merkin eteen pitää kirjoittaa kenoviiva. Esim. merkkijonon 'Häh?' löytää lausekkeella 'Häh\?'.
 
 ## Suorituskykytestien ajaminen
-Ohjelmassa on ominaisuus, jolla voi helposti testata ohjelman nopeutta eri lausekkeilla ja tiedostoilla. Lisätietoa on testausdokumentin kohdassa Suorituskykytestaus. Testausdokumentti on github-repositorion kansiossa dokumentointi/testidokumentit.
+Ohjelmassa on ominaisuus, jolla voit helposti testata ohjelman nopeutta eri lausekkeilla ja tiedostoilla. Voit ajaa valmiiksi määritellyt testit, kun ensin kopioit jar-paketin kanssa samaan kansioon viisi muuta tiedostoa: tiedostot.txt, lausekkeet.txt, 7veljesta.txt, 7veljestax5.txt ja 7veljestax10.txt. Nämä tiedostot löytyvät github-repositorion kansiosta dokumentointi/testidokumentit/suorituskykytestitiedostot.
+
+Nyt voit ajaa testit antamalla ohjelmalle parametriksi pelkästään sanan testi, eli komennolla
+```
+java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main testi
+```
+Tällöin ohjelma ajaa testit ja kirjoittaa testiraportin samaan kansioon tiedostoon testiraportti.txt.
+
+Voit määritellä helposti omiakin testejä muokkaamalla tiedostoja tiedostot.txt ja lausekkeet.txt.
+
+Lisätietoa on testausdokumentin kohdassa Suorituskykytestaus. Testausdokumentti on github-repositorion kansiossa dokumentointi/testidokumentit.
 
