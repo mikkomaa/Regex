@@ -1,0 +1,12 @@
+Jukola
+Jukola
+Jukola
+Jukola
+Jukola
+Jukola
+s(u|a*)n
+(Jukola)|(Jukola)|(Jukola)
+(A|a)(A|a)([m-p]|P)(O|u)
+t[a-z]lon va
+t[a-z][a-z][a-z][a-z] va
+((M|m)aanantai)|((T|t)iistai)|((K|k)eskiviikko)|((T|t)orstai)|((P|p)erjantai)|((L|l)auantai)|((S|s)unnuntai)

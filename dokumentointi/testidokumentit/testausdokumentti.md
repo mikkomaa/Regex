@@ -63,7 +63,7 @@ Testattavien tiedostojen on oltava määrittelytiedostojen kanssa samassa kansio
 #### Testattavat tiedostot
 Suorituskykytestauksessa käytettiin Project Gutenbergin sivuilta haettua Aleksis Kiven Seitsemän veljestä-kirjaa. Kirja oli tavallisena tekstitiedostona.
 
-Tiedostolle ajetut testit ajettiin myös 5 ja 10 kertaa pidemmille tiedostoille, joihin oli kopioitu kirja peräkkäinen 5 ja 10 kertaa. tiedostojen koot olivat 0,68, 3,4 ja 6,8 megatavua. Näin voitiin vertailla tiedoston koon vaikutusta suoritusaikoihin. Tiedostot ovat mukana testidokumenteissa (7veljesta.txt, 7veljestax5.txt ja 7veljestax10.txt).
+Tiedostolle ajetut testit ajettiin myös 5 ja 10 kertaa pidemmille tiedostoille, joihin oli kopioitu kirja peräkkäin 5 ja 10 kertaa. Tiedostojen koot olivat 0,68, 3,4 ja 6,8 megatavua. Näin voitiin vertailla tiedoston koon vaikutusta suoritusaikoihin. Tiedostot ovat mukana testidokumenteissa (7veljesta.txt, 7veljestax5.txt ja 7veljestax10.txt).
 
 #### Testihavaintoja
 Havaittiin, että ohjelman suoritusaika pysyy samalla tasolla kerrasta toiseen, kun samaa testiä ajetaan useasti (kokeiltiin viisi kertaa lausekkeella 'Jukola' ja viisi kertaa lausekkeella 's(u|a*)n'). Kahden pidemmän tiedoston kohdalla suoritusaika pysyi lähes täsmälleen samana kerrasta toiseen. Ohjelma näyttää siis toimivan joka kerta samalla tavalla, kun syöte on sama. Muu tulos olisikin varsin yllättävä.
@@ -76,17 +76,17 @@ Testeissä havaittiin, että suoritusaika on lineaarinen suhteessa tiedoston kok
 
 Havaittiin, että ohjelma on käyttökelpoinen megatavujenkin suuruisilla tiedostoilla. Pisimmällä eli 6,8 megatavun pituisella tiedostolla testien suoritusajat vaihtelivat 200 - 700 millisekunnin välillä eri lausekkeilla.
 
-Seuraavassa on erään testiajon tuloksia eri kokoisilla 7veljesta.txt-tiedostoilla eräillä etsityillä lausekkeilla. Ajat ovat millisekunteina. Sama ensin taulukkona ja sitten kuvana.
+Seuraavassa on erään testiajon tuloksia eri kokoisilla 7veljesta.txt-tiedostoilla eräillä etsityillä lausekkeilla. Ajat ovat millisekunteina. Sama tiedot ovat ensin taulukkona ja sitten kuvana.
 
 Lauseke | 0,68 Mt (1x) | 3,4 Mt (5x) | 6,8 Mt (10x)
 ------- | ------------ | ----------- | -----------
 Jukola | 22 | 116 | 227
 s(u&#124;a*)n | 25 | 124 | 281
-(A|a)(A|a)([m-p]|P)(O|u) | 27 | 138 | 271
+(A&#124;a)(A&#124;a)([m-p]|P)(O&#124;u) | 27 | 138 | 271
 t[a-z]lon va | 42 | 207 | 441
 t[a-z][a-z][a-z][a-z] va | 72 | 360 | 730
-((M|m)aanantai)|((T|t)iistai)|((K|k)eskiviikko)|((T|t)orstai)|((P|p)erjantai)|((L|l)auantai)|((S|s)unnuntai) | 68 | 345 | 702
+((M&#124;m)aanantai)&#124;((T&#124;t)iistai)&#124;((K&#124;k)eskiviikko)&#124;((T&#124;t)orstai)&#124;((P&#124;p)erjantai)&#124;((L&#124;l)auantai)&#124;((S&#124;s)unnuntai) | 68 | 345 | 702
 
 ![Suoritusaikakuva](https://github.com/mikkomaa/Regex/blob/master/dokumentointi/testidokumentit/suoritusajat.png)
 
-
+Kuvasta huomataan, että ohjelman suoritusaika kasvaa lineaarisesti tiedostokoon kasvaessa. Kuvasta näkee myös, miten säännöllisen lausekkeen monimutkaisuus nostaa suoritusaikaa. Tämä johtuu siitä, että lausekkeen monimutkaisuus lisää myös suoritettavan automaatin monimutkaisuutta.
