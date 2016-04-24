@@ -16,10 +16,10 @@ public class Suorituskykytesti implements Kayttoliittyma {
 
     ArrayList<String> lausekkeet; // testattavat lausekkeet
     ArrayList<String> tiedostot; // testattavat tiedostot
-    FileWriter raportti;
+    FileWriter raportti; // testiraportin kirjoittamiseen
     Automaatti automaatti;
     Scanner lukija;
-    private final int KERTOJA = 1; // montako kertaa sama testi ajetaan
+    private final int KERTOJA = 10; // montako kertaa sama testi ajetaan
 
     @Override
     public void kaynnista() {
@@ -31,6 +31,7 @@ public class Suorituskykytesti implements Kayttoliittyma {
                 + "testiraportti.txt.");
     }
 
+    // Luetaan testien tiedot tiedostoista ja avataan raporttitiedosto
     private void alustaTestitiedot() {
         lausekkeet = new ArrayList<>();
         tiedostot = new ArrayList<>();
@@ -38,6 +39,7 @@ public class Suorituskykytesti implements Kayttoliittyma {
         lueAlustustiedostot("tiedostot.txt", tiedostot);
 
         try {
+            // jos tiedosto on olemassa, kirjoitetaan päälle
             raportti = new FileWriter("testiraportti.txt", false);
         } catch (Exception e) {
             System.out.println("Virhe: " + e.getMessage());
@@ -45,6 +47,72 @@ public class Suorituskykytesti implements Kayttoliittyma {
         }
     }
 
+    // Ajetaan testit yksi kerrallaan ja kirjoitetaan tulos raporttiin
+    private void ajaTestit() {
+        try {
+            raportti.write("Testataan jokainen tiedosto kaikilla lausekkeilla.\n"
+                    + "Kukin suoritusaika on " + KERTOJA + " testikerran keskiarvo.\n\n");
+
+            for (String tiedosto : tiedostot) {
+                if (tiedosto.isEmpty()) {
+                    continue; // tiedostot.txt:ssä on tyhjä rivi
+                }
+                
+                System.out.print("Testataan tiedostoa " + tiedosto + "... ");
+                raportti.write("Tiedosto: " + tiedosto + "\n");
+
+                for (String lauseke : lausekkeet) {
+                    long aika = ajaTesti(lauseke, tiedosto); // testin ajo
+                    raportti.write("  lauseke: " + lauseke + ", suoritusaika: "
+                            + aika + " ms.\n");
+                }
+
+                raportti.write("\n");
+                System.out.println("valmis.");
+            }
+        } catch (Exception e) {
+            System.out.println("Virhe: " + e.getMessage());
+            lopeta();
+        }
+    }
+
+    // Ajetaan yksi testi KERTOJA kertaa. Palautetaan keskimääräinen suoritusaika
+    private long ajaTesti(String regex, String tiedosto) {
+        long suoritusaika = 0;
+        
+        try {
+            for (int i = 0; i < KERTOJA; i++) {
+                long aikaAlussa = System.currentTimeMillis();
+                automaatti = alustaTestiymparisto(regex, tiedosto);
+                while (lukija.hasNextLine()) {
+                    String rivi = lukija.nextLine();
+                    if (automaatti.suorita(rivi));
+                        //System.out.println(rivi);
+                }
+                long aikaLopussa = System.currentTimeMillis();
+                
+                suoritusaika += aikaLopussa - aikaAlussa;
+                lukija.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Tapahtui virhe: " + e.getMessage()
+                    + "\ntestissä: lauseke " + regex + ", tiedosto " + tiedosto);
+            lopeta();
+        }
+        return suoritusaika / KERTOJA;
+    }
+    
+    // Luodaan automaatti yksittäistä testiä varten
+    private Automaatti alustaTestiymparisto(String regex, String tiedosto) {
+        String[] args = {tiedosto, regex};
+        Jono<Character> lauseke = kasitteleParametrit(args);
+        tarkistaLauseke(lauseke);
+        lauseke = new Notaationmuuntaja(lauseke).muunna();
+        Tila nfa = new Automaatinluoja().luoAutomaatti(lauseke);
+        return new Automaatti(nfa);
+    }
+    
+    // Apumetodi tiedoston lukemiseen
     private void lueAlustustiedostot(String tiedosto, ArrayList<String> taulu) {
         try {
             lukija = new Scanner(new File(tiedosto));
@@ -57,16 +125,8 @@ public class Suorituskykytesti implements Kayttoliittyma {
             lopeta();
         }
     }
-
-    private Automaatti alustaTestiymparisto(String regex, String tiedosto) {
-        String[] args = {tiedosto, regex};
-        Jono<Character> lauseke = kasitteleParametrit(args);
-        tarkistaLauseke(lauseke);
-        lauseke = new Notaationmuuntaja(lauseke).muunna();
-        Tila nfa = new Automaatinluoja().luoAutomaatti(lauseke);
-        return new Automaatti(nfa);
-    }
-
+    
+    // Apumetodi testattavan lausekkeen käsittelyyn
     private Jono<Character> kasitteleParametrit(String[] args) {
         Parametrikasittelija pk = new Parametrikasittelija(args);
         lukija = pk.avaaTiedosto();
@@ -84,56 +144,8 @@ public class Suorituskykytesti implements Kayttoliittyma {
         }
         return lauseke;
     }
-
-    private void ajaTestit() {
-        try {
-            raportti.write("Testataan jokainen tiedosto kaikilla lausekkeilla.\n"
-                    + "Kukin suoritusaika on " + KERTOJA + " suorituskerran keskiarvo.\n\n");
-
-            for (String tiedosto : tiedostot) {
-                System.out.print("Testataan tiedostoa " + tiedosto + "... ");
-                raportti.write("Tiedosto: " + tiedosto + "\n");
-
-                for (String lauseke : lausekkeet) {
-                    ajaTesti(lauseke, tiedosto);
-                }
-
-                raportti.write("\n");
-                System.out.println("valmis.");
-            }
-        } catch (Exception e) {
-            System.out.println("Virhe: " + e.getMessage());
-            lopeta();
-        }
-    }
-
-    private void ajaTesti(String regex, String tiedosto) {
-        try {
-            raportti.write("  lauseke: " + regex + ", suoritusaika: ");
-
-            long aika = 0;
-            for (int i = 0; i < KERTOJA; i++) {
-                long aikaAlussa = System.currentTimeMillis();
-                automaatti = alustaTestiymparisto(regex, tiedosto);
-                while (lukija.hasNextLine()) {
-                    String s = lukija.nextLine();
-                    if (automaatti.suorita(s))
-                        System.out.println(s);
-                }
-                long aikaLopussa = System.currentTimeMillis();
-
-                aika += aikaLopussa - aikaAlussa;
-                lukija.close();
-            }
-            raportti.write("" + (aika / KERTOJA) + " ms.\n");
-
-        } catch (Exception e) {
-            System.out.println("Tapahtui virhe: " + e.getMessage()
-                    + "\ntestissä: lauseke " + regex + ", tiedosto " + tiedosto);
-            lopeta();
-        }
-    }
-
+    
+    // Apumetodi säännöllisen lausekkeen oikeellisuuden tarkistamiseen
     private void tarkistaLauseke(Jono<Character> lauseke) {
         Notaationtarkistaja tarkistaja = new Notaationtarkistaja(lauseke);
         char c = tarkistaja.onkoLausekeOikein();
@@ -143,6 +155,7 @@ public class Suorituskykytesti implements Kayttoliittyma {
         }
     }
 
+    // Lopetetaan onnistuneiden testien jälkeen
     private void hoidaLopputoimet() {
         try {
             raportti.close();
@@ -153,6 +166,7 @@ public class Suorituskykytesti implements Kayttoliittyma {
         }
     }
 
+    // Lopetetaan hallitusti virheen sattuessa
     private void lopeta() {
         System.out.println("Lopetetaan.");
         try {

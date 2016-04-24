@@ -54,7 +54,7 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
         Notaationtarkistaja tarkistaja = new Notaationtarkistaja(lauseke);
         char c = tarkistaja.onkoLausekeOikein();
         if (c != 'x') {
-            tulostaLausekevirhe();
+            tulostaLausekevirhe(c);
             System.exit(0);
         }
     }
@@ -73,8 +73,9 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
         tulostaOhje();
     }
 
-    private void tulostaLausekevirhe() {
-        System.out.println("Virhe: antamasi säännöllinen lauseke on virheellinen.");
+    private void tulostaLausekevirhe(char c) {
+        System.out.println("Antamasi säännöllinen lauseke on virheellinen. "
+                + "Virheen aiheutti merkki " + c + ".");
         tulostaOhje();
     }
 
