@@ -1,5 +1,5 @@
 # Ohjelman käyttöohje
-## Ohjelman toimintaidea
+## Mitä ohjelma tekee
 Ohjelma etsii ja tulostaa antamasi tiedoston ne rivit, joilla esiintyy antamasi hakusana. Hakusanana on säännöllinen lauseke.
 
 ## Ohjelman ajaminen
@@ -11,8 +11,6 @@ Ohjelma ajetaan komentoriviltä. Aja ohjelma komennolla
 ```
 java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main tiedostonimi lauseke
 ```
-(Lopullisesta ohjelmaversiosta tulee ehkä helpommin ajettava, komennolla java -cp Regex.jar tiedostonimi lauseke.)
-
 tiedostonimi ja lauseke ovat haluamiasi parametreja. tiedostonimi on tiedosto, josta merkkijonoja etsitään. lauseke on säännöllinen lauseke, jonka perusteella merkkijonoja etsitään.
 
 Tiedoston on oltava samassa hakemistossa jar-paketin kanssa. Tai voit antaa tiedostonimen yhteydessä tiedostopolun, esim. Linuxissa tyyliin hakemisto/hakemisto/tiedostonimi.
@@ -42,7 +40,7 @@ Hakusanana oleva säännöllinen lauseke voi sisältää seuraavia operaatioita:
 
 Operaatioiden etusijajärjestys on sitovimmasta alkaen seuraava: *, katenaatio ja |. Kysymysmerkki kuvaa mitä tahansa normaalia merkkiä eikä siten ole etusijajärjestyksessä mukana. Merkkiväli tulkitaan samoin kuin vastaava sulkulauseke eli esim. [0-2] tarkoittaa samaa kuin (0|1|2).
 
-Suluilla () voi muuttaa normaalia etusijajärjestystä. Esim. lauseke 'ab|cd' löytää rivit, joilla esiintyy merkkijonot ab tai cd, mutta lauseke 'a(b|c)d' löytää rivit, joilla esiintyy merkkijonot abd tai acd.
+Suluilla ( ) voi muuttaa normaalia etusijajärjestystä. Esim. lauseke 'ab|cd' löytää rivit, joilla esiintyy merkkijonot ab tai cd, mutta lauseke 'a(b|c)d' löytää rivit, joilla esiintyy merkkijonot abd tai acd.
 
 Jos säännöllisessä lausekkeessa haluaa käyttää tavallisena merkkinä merkkejä *, |, ?, [, ], (, ) tai \, merkin eteen pitää kirjoittaa kenoviiva. Esim. merkkijonon 'Häh?' löytää lausekkeella 'Häh\?'.
 
@@ -53,7 +51,7 @@ Nyt voit ajaa testit antamalla ohjelmalle parametriksi pelkästään sanan testi
 ```
 java -cp Regex-1.0-SNAPSHOT.jar regex.regex.Main testi
 ```
-Tällöin ohjelma ajaa testit ja kirjoittaa testiraportin samaan kansioon tiedostoon testiraportti.txt.
+Tällöin ohjelma ajaa testit ja kirjoittaa testiraportin samaan kansioon tiedostoon testiraportti.txt. Mahdollinen aiempi raportti ylikirjoitetaan.
 
 Voit määritellä helposti omiakin testejä muokkaamalla tiedostoja tiedostot.txt ja lausekkeet.txt. Lisätietoa on testausdokumentin kohdassa Suorituskykytestaus. Testausdokumentti on github-repositorion kansiossa dokumentointi/testidokumentit.
 
