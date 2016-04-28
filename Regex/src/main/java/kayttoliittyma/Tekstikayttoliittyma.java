@@ -80,7 +80,8 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
     }
 
     private void tulostaOhje() {
-        System.out.println("Ohjelman käyttö: ohjelmannimi tiedosto lauseke"); // päivitä tämä lopulliseen ajettavaan versioon
+        System.out.println("Ohjelman käyttö: java -cp Regex-1.0-SNAPSHOT.jar "
+                + "regex.regex.Main tiedosto lauseke");
         System.out.println("Tarkemmat ohjeet ovat käyttöohjeessa.");
     }
 
