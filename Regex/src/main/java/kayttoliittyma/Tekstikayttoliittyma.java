@@ -13,6 +13,11 @@ public class Tekstikayttoliittyma implements Kayttoliittyma {
     String[] args; // komentoriviparametrit
     Scanner lukija;
 
+    /**
+     *
+     * @param args Käyttäjän antamat komentoriviparametrit
+     * @param lukija
+     */
     public Tekstikayttoliittyma(String[] args, Scanner lukija) {
         this.args = args;
         this.lukija = lukija;

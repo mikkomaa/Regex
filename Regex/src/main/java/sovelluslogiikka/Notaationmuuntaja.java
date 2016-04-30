@@ -133,6 +133,11 @@ public class Notaationmuuntaja {
         return lauseke;
     }
 
+    /**
+     * Metodi muuntaa lausekkeen hakasulut tavallisiksi suluiksi
+     * 
+     * @return Palauttaa lausekkeen ilman hakasulkuja
+     */
     public Jono<Character> poistaHakasulut() {
         Jono uusi = new Jono<>();
 

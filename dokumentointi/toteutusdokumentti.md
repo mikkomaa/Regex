@@ -28,29 +28,27 @@ Hakusanana oleva säännöllinen lauseke voi sisältää seuraavia operaatioita:
 - tähti * : edeltävä merkki esiintyy merkkijonossa nolla kertaa tai useammin
 - yhdiste |
 - kysymysmerkki ? : kysymysmerkin paikalla voi olla mikä tahansa yksi merkki
-- merkkiväli [] : Merkkiväli löytää rivit, joilla esiintyy mikä tahansa väliin kuuluva merkki. Sallittuja merkkivälejä ovat pienet kirjaimet [a-z], isot kirjaimet [A-Z] ja numerot [0-9]. Merkkivälejä ei voi sekoittaa keskenään. Merkkivälissä jälkimmäisen merkin on oltava "suurempi" kuin ensimmäinen.
+- merkkiväli [ ] : Merkkiväli löytää rivit, joilla esiintyy mikä tahansa väliin kuuluva merkki. Sallittuja merkkivälejä ovat pienet kirjaimet [a-z], isot kirjaimet [A-Z] ja numerot [0-9]. Merkkivälejä ei voi sekoittaa keskenään. Merkkivälissä jälkimmäisen merkin on oltava "suurempi" kuin ensimmäinen.
 
 Operaatioiden etusijajärjestys on sitovimmasta alkaen seuraava: *, katenaatio ja |. Kysymysmerkki kuvaa mitä tahansa normaalia merkkiä eikä siten ole etusijajärjestyksessä mukana. Merkkiväli tulkitaan samoin kuin vastaava sulkulauseke eli esim. [0-2] tarkoittaa samaa kuin (0|1|2).
 
-Suluilla () voi muuttaa normaalia etusijajärjestystä.
+Suluilla ( ) voi muuttaa normaalia etusijajärjestystä.
 
-Jos säännöllisessä lausekkeessa haluaa käyttää tavallisena merkkinä merkkejä *, |, ?, [, ], (, ) tai \, merkin eteen pitää kirjoittaa kenoviiva.
+Jos säännöllisessä lausekkeessa haluaa käyttää tavallisena merkkinä merkkejä *, |, ?, [, ], (, ) tai \, merkin eteen pitää kirjoittaa kenoviiva \.
 
 ## Saavutetut aika- ja tilavaativuudet
 Jäljempänä olevat pseudokoodit kuvaavat metodeita sellaisella tarkkuudella, että metodien toimintaidea näkyy selkeästi. Luokkien metodeista käydään läpi ne, jotka ovat aika- tai tilavaativuudeltaan kiinnostavia ohjelman toiminnan kannalta.
 
-Jos muuta ei ilmoiteta, aika- ja tilavaativuudella tarkoitetaan vaativuutta suhteessa säännöllisen lausekkeen pituuteen.
-
 ### Sovelluslogiikkaluokat
 #### Parametrikasittelija
-TaulukoiLauseke-metodi kopioi komentoriviparametrina saadun säännöllisen lausekkeen yhdeksi jonoksi. Koska lauseke voi siinä olevien välilyöntien vuoksi olla teknisesti useassa osassa, metodissa on kaksi sisäkkäistä for-silmukkaa. Tästä huolimatta metodi käy lausekkeen läpi vain kerran. Siis aika- ja tilavaativuus on O(n).
+TaulukoiLauseke-metodi kopioi komentoriviparametrina saadun säännöllisen lausekkeen yhdeksi jonoksi. Koska lauseke voi siinä olevien välilyöntien vuoksi olla teknisesti useassa osassa, metodissa on kaksi sisäkkäistä for-silmukkaa. Tästä huolimatta metodi käy lausekkeen läpi vain kerran. Siis aika- ja tilavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen.
 
 #### Notaationtarkistaja
 ##### Konstruktori
-Luokan konstruktori luo kopion argumenttina saamastaan lausekkeesta Jono-luokan luoKopio-metodilla. Konstruktorin aika- ja tilavaativuus on O(n).
+Luokan konstruktori luo kopion argumenttina saamastaan lausekkeesta Jono-luokan luoKopio-metodilla. Konstruktorin aika- ja tilavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen.
 
 ##### onkoLausekeOikein-metodi
-onkoLausekeOikein-metodi käy läpi konstruktorissa luodun lausekekopion tarkistaen, onko lauseke (teknisesti jono) syntaksin mukainen. Metodi kertoo paluuarvollaan, onko lauseke oikein tai mikä oli 1. virheellinen merkki.
+onkoLausekeOikein-metodi käy läpi konstruktorissa luodun lausekekopion tarkistaen, onko lauseke (teknisesti jono) syntaksin mukainen. Metodi kertoo paluuarvollaan, onko lauseke oikein tai mikä oli ensimmäinen virheellinen merkki.
 ```
 char onkoLausekeOikein()
     while (lauseke ei ole tyhjä)
@@ -64,13 +62,13 @@ char onkoLausekeOikein()
 ```
 Metodin switch-lauseessa on useita case-kohtia, joista jokaisessa tehdään joitakin vakioaikaisia ja -tilaisia operaatioita. Lausekkeen yksittäinen merkki käsitellään jossakin case-kohdassa. Jos lauseke on syntaksin mukainen, koko lauseke käydään läpi. Jos lausekkeessa on virhe, metodin suoritus päättyy virheen kohdalla. Metodi käyttää muutamaa apumuuttujaa.
 
-Siis metodin aikavaativuus on O(n) ja tilavaativuus O(1).
+Siis metodin aikavaativuus on O(n) suhteessa lausekkeen pituuteen ja tilavaativuus O(1).
 
 #### Notaationmuuntaja
 Luokka muuntaa syntaksiltaan oikean, infix-muodossa olevan säännöllisen lausekkeen postfix-muotoon. Luokan käyttäjän näkökulmasta muunnos tapahtuu kutsumalla muunna-metodia. Luokan sisäisesti muuntaminen on selkeyden vuoksi jaettu kolmeen osaan eli poistaHakasulut-, lisaaPisteet- ja muutaPostfixiin-metodeiksi.
 
 ##### Konstruktori
-Luokan konstruktori luo kopion argumenttina saamastaan lausekkeesta Jono-luokan luoKopio-metodilla. Konstruktorin aika- ja tilavaativuus on O(n).
+Luokan konstruktori luo kopion argumenttina saamastaan lausekkeesta Jono-luokan luoKopio-metodilla. Konstruktorin aika- ja tilavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen.
 
 ##### poistaHakasulut-metodi
 Metodi käy lausekkeen merkki merkiltä läpi tasan kerran. Jos lausekkeessa on hakasulkumerkintöjä, ne muutetaan toiminnaltaan vastaaviksi lausekkeen osiksi ilman hakasulkuja. Hakasulut tulkitaan siten, että esimerkiksi merkintä [c-f] tarkoittaa samaa kuin (c|d|e|f). Kun lauseke on käyty läpi, tuloksena on uusi, semantiikaltaan entistä vastaava lauseke ilman hakasulkuja.
@@ -88,7 +86,7 @@ Hakasuluissa voidaan käyttää kolmenlaisia merkkivälejä: [a-z], [A-Z] ja [0-
 
 Tuloksena oleva muunnettu säännöllinen lauseke on pituudeltaan alkuperäinen lauseke kerrottuna jollain vähintään yhden suuruisella kertoimella k. Toisaalta kerroin k on aina alle kymmenen.
 
-Siis metodin aika- ja tilavaativuus on O(n).
+Siis metodin aika- ja tilavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen.
 
 ##### lisaaPisteet-metodi
 Metodi lisää säännölliseen lausekkeeseen pisteet katenaatioiden merkiksi. Esimerkiksi käyttäjän antama lauseke abc muutetaan muotoon a.b.c. Paluuarvo on jono, jossa on säännöllinen lauseke lisättynä pisteillä.
@@ -106,7 +104,7 @@ Oikea metodi on teknisten yksityiskohtien vuoksi mutkikkaampi, mutta toimintaide
 
 Metodi käy lausekkeen läpi kertaalleen merkki kerrallaan ja luo samalla uuden lausekkeen. Uusi lauseke on pisteiden lisäämisen vuoksi pituudeltaan alkuperäinen lauseke kerrottuna jollain vähintään yhden suuruisella kertoimella k. Kerroin k on (tässä sivuutettujen teknisten seikkojen vuoksi) enintään noin kolme.
 
-Metodin aika- ja tilavaativuus on O(n).
+Metodin aika- ja tilavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen.
 
 ##### muutaPostfixiin-metodi
 Metodi luo infix-notaatiossa olevasta lausekkeesta uuden, postfix-muodossa olevan lausekkeen ja palauttaa sen. Metodi käyttää shunting-yard-algoritmia.
@@ -123,7 +121,7 @@ Jono muutaPostfixiin()
 ```
 Metodin switch-lauseessa on useita case-kohtia, joista jokaisessa suoritetaan joitakin vakioaikaisia ja -tilaisia operaatioita. Lausekkeen yksittäinen merkki käsitellään jossakin case-kohdassa. Metodi käyttää apuna pinoa, johon väliaikaisesti säilötään operaattoreita.
 
-Koska metodi käy läpi koko lausekkeen ja luo samalla uuden, aika- ja tilavaativuus on O(n).
+Koska metodi käy läpi koko lausekkeen ja luo samalla uuden, aika- ja tilavaativuus on O(n) suhteessa säännöllisen lausekkeen pituuteen.
 
 #### Automaatinluoja
 luoAutomaatti-metodi luo postfix-muotoisesta säännöllisestä lausekkeesta epädeterministisen äärellisen automaatin. Metodi käyttää Thompsonin algoritmia.
@@ -149,11 +147,11 @@ Tarkastellaan ensin tilavaativuutta. Yksittäisen Tila-olion tilavaativuus on O(
 
 Metodin aikavaativuuden voisi äkkiseltään arvioida olevan samaa luokkaa tilavaativuuden kanssa. Mutta osoittautuu, että aikavaativuus on neliöinen eli O(n^2) suhteessa lausekkeen pituuteen. Tämä johtuu siitä, että operaattoreita käsittelevät metodit käyttävät apumetodia, joka etsii siihen mennessä rakennetusta automaatin osasta lopputilan. Se etsitään algoritmilla, joka käy läpi linkitettyä listaa alkaen osan alkutilasta, kunnes löytyy osan lopputila.
 
-Ohjelman nopeuden kannalta neliöisellä aikavaativuudella ei ole käytännön merkitystä, ellei säännöllisen lausekkeen pituus ole kokoluokaltaan tuhansia merkkejä. Siksi koodi on tässä kohdassa kirjoitettu mahdollisimman yksinkertaiseksi, eikä aikavaativuutta ole pyritty enempää minimoimaan. Aikavaativuuden pystyisi laskemaan ainakin luokkaan O(nlogn), jos kunkin automaatin osan lopputiloja pitäisi rakennuksen aikana muistissa esimerkiksi hashmapissä.
+Ohjelman nopeuden kannalta neliöisellä aikavaativuudella ei ole käytännön merkitystä, ellei säännöllisen lausekkeen pituus ole kokoluokaltaan tuhansia merkkejä. Siksi koodi on tässä kohdassa kirjoitettu mahdollisimman yksinkertaiseksi, eikä aikavaativuutta ole pyritty enempää minimoimaan. Aikavaativuuden pystyisi laskemaan ainakin luokkaan O(nlogn), jos kunkin automaatin osan lopputiloja pitäisi automaatin rakentamisen aikana muistissa esimerkiksi hashmapissä.
 
 #### Automaatti
 ##### suorita-metodi
-Luokka toteuttaa koodin, jolla valmiin automaatin läpi voi ajaa merkkijonoja eli tässä ohjelmassa tiedostosta luettuja rivejä. Jos riviltä löytyy säännöllisen lausekkeen kuvaama merkkijono, automaatti hyväksyy rivin ja paluuarvo on true. Jos merkkijonoa ei löydy, paluuarvo on false.
+Luokka toteuttaa koodin, jolla valmiin automaatin läpi voi ajaa merkkijonoja eli tiedostosta luettuja rivejä. Jos riviltä löytyy säännöllisen lausekkeen kuvaama merkkijono, automaatti hyväksyy rivin, ja paluuarvo on true. Jos merkkijonoa ei löydy, paluuarvo on false.
 
 Luokassa on yksi public-metodi:
 ```
@@ -180,6 +178,7 @@ paivitaTila(merkki)
     while (nykyisetAktiivitilat ei ole tyhja)
         tila = nykyisetAktiivitilat.poista()
         etene(tila, merkki, true, uudetAktiivitilat)
+	
     nykyisetAktiivitilat = uudetAktiivitilat
 ```
 Metodi käy läpi nykyiset aktiivitilat tila kerrallaan. Metodi kutsuu kunkin tilan kohdalla apumetodia etene, joka etenee kyseisestä automaatin tilasta yhden askeleen eteenpäin. Samalla päivitetään aktiivitilojen joukko.
@@ -250,15 +249,23 @@ Tekstikayttoliittyma-luokka toteuttaa ohjelman käyttöliittymän. Luokka kutsuu
 
 Suurin osan luokan koodia on reagointia logiikkaluokkien paluuarvoihin, jotta käyttäjälle tulostetaan tarvittaessa järkevä virheilmoitus.
 
-Kun ohjelmaa käytetään tavanomaisesti, luettava tiedosto on selvästi pitempi kuin komentoriviparametrit. Tällöin käyttöliittymän aikavaativuus on O(n) suhteessa tiedoston pituuteen, sillä ohjelman suorituksen aikana koko tiedosto käydään läpi kerran (rivi kerrallaan).
+Kun ohjelmaa käytetään tavanomaisesti, luettava tiedosto on selvästi pitempi kuin säännöllinen lauseke. Tällöin käyttöliittymän aikavaativuus on O(n) suhteessa tiedoston pituuteen, sillä ohjelman suorituksen aikana koko tiedosto käydään läpi kerran (rivi kerrallaan).
 
-Käyttöliittymän tilavaativuuden ilmaiseminen lyhyesti on hieman epämääräistä, sillä luokassa luodaan oliot sovelluslogiikkaluokista. Jos olioiden luonti jätetään huomiotta, tilavaativuus on O(n) suhteessa komentoriviparametrien pituuteen tai luettavan tiedoston pisimmän rivin pituuteen, kumpi sattuu olemaan pitempi. Tilavaativuus voi siis olla huomattavan suuri, jos luettavassa tiedostossa on vaikkapa vain yksi erittäin pitkä rivi.
+Käyttöliittymän tilavaativuuden ilmaiseminen lyhyesti on hieman epämääräistä, sillä luokassa luodaan oliot sovelluslogiikkaluokista. Jos olioiden luonti jätetään huomiotta, tilavaativuus on O(n) suhteessa komentoriviparametrien pituuteen tai luettavan tiedoston pisimmän rivin pituuteen, kumpi sattuu olemaan pitempi. Tilavaativuus voi siis olla megatavujenkin suuruinen, jos luettavassa tiedostossa on vaikkapa vain yksi erittäin pitkä rivi.
 
 ## Suorituskyky
-Tähän asiaa yllä olevan analyysiin ja testien perusteella...
+### Ohjelman nopeus
+Ohjelman nopeuden kannalta on käytännössä olennaista se, että ohjelma toimii ajassa O(n) suhteessa syötetiedoston kokoon. Tämä mainitaan myös määrittelydokumentissa tavoitteeksi.
+
+Yllä olevien aikavaativuusanalyysien perusteella tämä tavoite saavutettiin ohjelman toteutuksessa. Myös testausdokumentissa kuvatut suorituskykytestit vahvistavat asian. Käytännössä tämä tarkoittaa, että ohjelma toimii riittävän nopeasti megatavujenkin suuruisilla syötetiedostoilla.
+
+Suurin osa ohjelman koodia liittyy säännöllisen lausekkeen käsittelyyn, johon kuluva aika on kuitenkin käytännössä merkityksetön ohjelman normaalin käytön kannalta. Tältä osin ohjelmassa näkyykin olio-ohjelmoinnin suositeltujen käytäntöjen noudattaminen sen sijaan, että aikavaativuutta (eli lausekkeen pituuteen suhteutetun aikavaativuuden kO(n) kerrointa k) olisi pyritty minimoimaan. Lopputulos on, että säännöllistä lauseketta käsitellään useita kertoja algoritmeilla, joiden aikavaativuus on O(n) suhteessa lausekkeen pituuteen. Olisi sinänsä täysin mahdollista kirjoittaa lausekkeen käsittely siten, että lauseke käytäisiin läpi vain kerran ennen automaatin luontia.
+
+### Ohjelman tarvitsema muistin määrä
+Tilavaativuuksien osalta ohjelma on vähemmän mielenkiintoinen. Ohjelman tarvitsema muistin määrä ei muodostu ohjelman normaalikäytössä ongelmaksi nykyisillä tietokoneilla. Ainoa määrittelydokumenttiin verrattuna yllättävä seikka on, että automaatin tilavaativuus on vaativuuden O(n) sijasta neliöinen eli O(n^2) suhteessa säännöllisen lausekkeen pituuteen.
 
 ## Puutteet ja parannusehdotukset
-Tiedossa ei ole bugeja. Parannusehdotus merkkivälien kuvaaminen automaatissa yhdellä tilalla. täydentyy...
+Tiedossa ei ole bugeja.
 
-## Lähteet
-täydentyy...?
+Automaatin ajamista ehkä nopeuttaisi hieman se, jos yksittäinen automaatin tila voisi kuvata yhden merkin sijasta myös merkkiväliä. Nyt esimerkiksi säännöllisessä lausekkeessa olevasta merkkivälistä [a-z] luodaan 26 merkkitilaa automaattiin. Jos samalla tilalla voisi kuvata merkkiväliä, tarvittaisiin tällöin vain yksi merkkitila. Nopeutuminen todennäköisesti näkyisi ainakin suorituskykytesteissä lausekkeilla, joissa on useita laajoja merkkivälejä. Teoreettisessa tarkastelussa muutos siis alentaisi säännöllisen lausekkeen pituuteen suhteutetun aikavaativuuden kO(n) kerrointa k. Toisaalta muutos hieman monimutkaistaisi kaikkien tilojen käsittelyä automaatin ajon aikana, joten suorituskyvyn muutoksen suuruutta on vaikea arvioida tarkasti.
+

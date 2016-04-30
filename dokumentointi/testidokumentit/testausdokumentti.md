@@ -73,15 +73,15 @@ Tiedostolle ajetut testit ajettiin myös 5 ja 10 kertaa pidemmille tiedostoille,
 #### Testihavaintoja
 Havaittiin, että ohjelman suoritusaika pysyy samalla tasolla kerrasta toiseen, kun samaa testiä ajetaan useasti (kokeiltiin viisi kertaa lausekkeella 'Jukola' ja viisi kertaa lausekkeella 's(u|a*)n'). Kahden pidemmän tiedoston kohdalla suoritusaika pysyi lähes täsmälleen samana kerrasta toiseen. Ohjelma näyttää siis toimivan joka kerta samalla tavalla, kun syöte on sama. Muu tulos olisikin varsin yllättävä.
 
-Testejä toistettaessa havaittiin mielenkiintoinen seikka, että ensimmäisen testin suorituskerta vie 30-50 prosenttia enemmän aikaa kuin saman testin ajo muussa kohdassa. Toisen testin suoritusajassa näkyy sama ilmiö mutta heikompana ja kolmannessakin testissä ilmiö näkyy vielä hieman. Tulos ei riipu lausekkeesta tai tiedoston pituudesta. Ilmiölle ei keksitty toteutettuun ohjelmaan tai testien ajamiseen liittyvää syytä. Ennen jokaista testiä automaatti alustetaan alusta saakka samalla tavalla kuin ohjelman jokaisen normaalin suorituskerran yhteydessä. Ensimmäisen testin suoritusaikaan ei myöskään oteta mukaan itse ohjelman käynnistysaikaa. Ehkä ilmiö liittyy jotenkin Javan virtuaalikoneen sisäiseen toimintaan.
+Testejä toistettaessa havaittiin mielenkiintoinen seikka, että ensimmäisen testin suorituskerta vie 30-50 prosenttia enemmän aikaa kuin saman testin ajo muussa kohdassa samassa testiajossa. Toisen testin suoritusajassa näkyy sama ilmiö mutta heikompana ja kolmannessakin testissä ilmiö näkyy vielä hieman. Tulos ei riipu lausekkeesta tai tiedoston pituudesta. Ilmiölle ei keksitty toteutettuun ohjelmaan tai testien ajamiseen liittyvää syytä. Ennen jokaista testiä automaatti alustetaan alusta saakka samalla tavalla kuin ohjelman jokaisen normaalin suorituskerran yhteydessä. Ensimmäisen testin suoritusaikaan ei myöskään oteta mukaan itse ohjelman käynnistysaikaa. Ehkä ilmiö liittyy jotenkin Javan virtuaalikoneen sisäiseen toimintaan.
 
 Kun yllä mainittu ilmiö ei näytä liittyvän itse ohjelman toimintaan, testituloksia on tulkittu ikään kuin ilmiötä ei olisi.
 
-Testeissä havaittiin, että suoritusaika on lineaarinen suhteessa tiedoston kokoon. Jos testin suoritusaika oli lyhimmällä tiedostolla esimerkiksi 30 millisekuntia, niin suoritusaika oli 5 kertaa pitemmällä tiedostolla viisinkertainen ja 10 kertaa pitemmällä tiedostolla kymmenkertainen. Tämä tulos päti riippumatta siitä, mikä oli testattava lauseke.
+Testeissä havaittiin, että suoritusaika on lineaarinen suhteessa tiedoston kokoon. Jos testin suoritusaika oli lyhimmällä tiedostolla esimerkiksi 30 millisekuntia, niin suoritusaika samalla lausekkeella oli 5 kertaa pitemmällä tiedostolla viisinkertainen ja 10 kertaa pitemmällä tiedostolla kymmenkertainen. Tämä tulos päti riippumatta siitä, mikä oli testattava lauseke.
 
-Havaittiin, että ohjelma on käyttökelpoinen megatavujenkin suuruisilla tiedostoilla. Pisimmällä eli 6,8 megatavun pituisella tiedostolla testien suoritusajat vaihtelivat 200 - 700 millisekunnin välillä eri lausekkeilla.
+Havaittiin, että ohjelma on käyttökelpoinen megatavujenkin suuruisilla tiedostoilla. Pisimmällä eli 6,8 megatavun pituisella tiedostolla testien suoritusajat olivat 200 - 700 millisekuntia sen mukaan, mitä lauseketta testattiin.
 
-Seuraavassa on erään testiajon tuloksia eri kokoisilla 7veljesta.txt-tiedostoilla eräillä etsityillä lausekkeilla. Ajat ovat millisekunteina. Sama tiedot ovat ensin taulukkona ja sitten kuvana.
+Seuraavassa on erään testiajon tulokset eri kokoisilla 7veljesta-tiedostoilla eräillä etsityillä lausekkeilla. Ajat ovat millisekunteina. Samat tiedot ovat ensin taulukkona ja sitten kuvana.
 
 Lauseke | 0,68 Mt (1x) | 3,4 Mt (5x) | 6,8 Mt (10x)
 ------- | ------------ | ----------- | -----------
@@ -96,3 +96,6 @@ t[a-z][a-z][a-z][a-z] va | 72 | 360 | 730
 ![Suoritusaikakuva](https://github.com/mikkomaa/Regex/blob/master/dokumentointi/testidokumentit/suoritusajat.png)
 
 Kuvasta huomataan, että ohjelman suoritusaika kasvaa lineaarisesti tiedostokoon kasvaessa. Kuvasta näkee myös, miten säännöllisen lausekkeen monimutkaisuus nostaa suoritusaikaa. Tämä johtuu siitä, että lausekkeen monimutkaisuus lisää myös suoritettavan automaatin monimutkaisuutta.
+
+Lausekkeen monimutkaisuuden vaikutus ohjelman käytännön suoritusaikaan on tekijä, jota ei pysty mittaamaan yleispätevästi. On mahdollista kuvata tarkasti, montako solmua tietty lauseke aiheuttaa automaattiin ja millaisia yhteyksiä on solmujen välillä. Mutta riippuu täysin syötteenä olevasta tiedostosta, miten pitkälle automaattia ajetaan etsinnän aikana. Jos lauseke alkaa vaikkapa z-kirjaimella eikä tiedostossa ole yhtään z-kirjainta, monimutkainenkaan automaatti ei koskaan etene kuin yhden merkkitilan verran. Toisaalta huonoin mahdollinen suoritusaika saadaan silloin, kun automaatti on monimutkainen ja syötetiedosto sellainen, että mahdollisimman moni automaatin tila on jatkuvasti aktiivinen. Toteutusdokumentista löytyvän analyysin perusteella teoreettinen aikavaativuus pysyy tällöinkin yleensä lineaarisena suhteessa syötetiedoston pituuteen.
+

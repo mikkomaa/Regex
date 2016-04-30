@@ -92,7 +92,7 @@ public class Notaationtarkistaja {
         if (!onkoValiOikein(alku, loppu) || viiva == null || viiva != '-'
                 || loppusulku == null || loppusulku != ']') {
             return false;
-        }
+    }
         return true;
     }
 
