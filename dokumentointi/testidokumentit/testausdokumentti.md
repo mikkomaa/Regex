@@ -99,3 +99,6 @@ Kuvasta huomataan, että ohjelman suoritusaika kasvaa lineaarisesti tiedostokoon
 
 Lausekkeen monimutkaisuuden vaikutus ohjelman käytännön suoritusaikaan on tekijä, jota ei pysty mittaamaan yleispätevästi. On mahdollista kuvata tarkasti, montako solmua tietty lauseke aiheuttaa automaattiin ja millaisia yhteyksiä on solmujen välillä. Mutta riippuu täysin syötteenä olevasta tiedostosta, miten pitkälle automaattia ajetaan etsinnän aikana. Jos lauseke alkaa vaikkapa z-kirjaimella eikä tiedostossa ole yhtään z-kirjainta, monimutkainenkaan automaatti ei koskaan etene kuin yhden merkkitilan verran. Toisaalta huonoin mahdollinen suoritusaika saadaan silloin, kun automaatti on monimutkainen ja syötetiedosto sellainen, että mahdollisimman moni automaatin tila on jatkuvasti aktiivinen. Toteutusdokumentista löytyvän analyysin perusteella teoreettinen aikavaativuus pysyy tällöinkin yleensä lineaarisena suhteessa syötetiedoston pituuteen.
 
+## Lähteet
+Lähteet ovat samat kuin määrittelydokumentissa käytetyt.
+
